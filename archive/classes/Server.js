@@ -156,8 +156,6 @@ class Server {
         console.info(`Owner is ${this.getIdent(process.env.BOT_OWNER_ID)} (ID: ${process.env.BOT_OWNER_ID})`);
       }
     }
-    if (!this.hasOwner)
-      console.warn('You can use the /myid command to get your user ID');
 
     this.client.on('message', message => {
       this.onMessage(message);
