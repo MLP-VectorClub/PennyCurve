@@ -1,5 +1,15 @@
 {
   "compilerOptions": {
-    "strict": true
+    "declaration": false,
+    "lib": [
+      "ES2018",
+      "DOM"
+    ],
+    "moduleResolution": "Node",
+    "outDir": "build",
+    "rootDir": "src",
+    "strict": true,
+    "target": "ES2016",
+    "sourceMap": true
   }
 }

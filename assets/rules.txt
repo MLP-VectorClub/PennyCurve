@@ -1,8 +1,13 @@
-**1.** Everyone (including non-members) is welcome; you don't have to be an artist/musician/writer to be part of the conversation. However, if you *are* a club member, please tell us (along with your DeviantArt name) so we can assign you the appropriate nickname and role.
+__**Welcome to the MLP-VectorClub's Discord Server!**__
+The server's canonical invite link is <{{INVITE_LINK}}>
+
+We have a few rules that you should keep in mind:
+
+**1.** Everyone is welcome; you don't have to be an artist/musician/writer to be part of the conversation. However, if you *are* a member of our DeviantArt group, please tell us (along with your DeviantArt name) so we can assign you the appropriate nickname and role.
 
 **2.** If your Discord username is different from your DeviantArt username we'll give you a nickname that matches your DA name. This is especially important if you're a member or someone who interacts with the group frequently. If you want to keep your Discord name visible, you can use the `/fixnick` command. To learn more, use `/help fixnick`.
------
-**3.** Kindly try to keep topics in their respective chat rooms. Use your notification settings (Screenshot: <https://goo.gl/WdRVUm>) to mute any channels you don't want to be notified of new messages in.
+
+**3.** Kindly try to keep topics in their respective chat rooms. Use your notification settings (Screenshot: <https://bit.ly/2VKoQdZ>) to mute any channels you don't want to be notified of new messages in.
     #CASUAL: The place for general discussion. You can share art, music, or funny pictures with the rest of the members.
     #GAMES: For all things gaming. If you want to notify others about game deals and discounts this is the place to do so.
     #VECTORS: Vector artwork helpline - you can ask for critique on or help with your vectors here. You can use the `/vectorapp` command to give yourself roles that let others know what application you make vectors with.
