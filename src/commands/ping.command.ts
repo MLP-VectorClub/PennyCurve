@@ -5,6 +5,9 @@ export const pingCommand: BotCommand = {
     description: 'Replies with Pong!',
   },
   async handle(interaction) {
-    await interaction.reply('Pong!');
+    await interaction.reply({
+      content: 'Pong!',
+      ephemeral: true,
+    });
   },
 };

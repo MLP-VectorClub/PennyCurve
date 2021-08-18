@@ -2,10 +2,18 @@ import { RESTPostAPIApplicationGuildCommandsJSONBody as ApplicationGuildCommand 
 import { pingCommand } from './commands/ping.command.js';
 import { BotCommand, BotCommandName } from './bot-interaction-types.js';
 import { updateRulesCommand } from './commands/update-rules.command.js';
+import { ageCommand } from './commands/age.command.js';
+import { casualCommand } from './commands/casual.command.js';
+import { colorGuideCommand } from './commands/color-guide.command.js';
+import { derpibooruCommand } from './commands/derpibooru.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.PING]: pingCommand,
   [BotCommandName.UPDATE_RULES]: updateRulesCommand,
+  [BotCommandName.AGE]: ageCommand,
+  [BotCommandName.CASUAL]: casualCommand,
+  [BotCommandName.COLOR_GUIDE]: colorGuideCommand,
+  [BotCommandName.DERPIBOORU]: derpibooruCommand,
 };
 
 export const commandNames = (Object.keys(commandMap) as BotCommandName[]);

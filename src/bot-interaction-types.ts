@@ -4,8 +4,12 @@ import { ButtonInteraction, Interaction } from 'discord.js';
 import { ServerRoleName } from './constants/server-role-name.js';
 
 export enum BotCommandName {
+  AGE = 'age',
   PING = 'ping',
   UPDATE_RULES = 'update-rules',
+  CASUAL = 'casual',
+  COLOR_GUIDE = 'cg',
+  DERPIBOORU = 'db',
 }
 
 export interface BotCommandPermission {

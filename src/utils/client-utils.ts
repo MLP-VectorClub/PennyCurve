@@ -1,5 +1,5 @@
 import {
-  Client, Guild, Role, TextChannel,
+  Client, Guild, Role, TextBasedChannels, TextChannel,
 } from 'discord.js';
 import { env } from '../env.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
@@ -31,3 +31,5 @@ export const findServerRoleByName = (server: Guild, name: ServerRoleName): Role 
 
   return foundRole;
 };
+
+export const isChannelName = (channel: TextBasedChannels | null | undefined, name: ServerChannelName): boolean => Boolean(channel && 'name' in channel && channel.name === name);

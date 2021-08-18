@@ -14,7 +14,10 @@ import { commandMap, commands, isKnownCommand } from '../commands.js';
 import { env } from '../env.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
 
-const rest = new REST({ version: '9' }).setToken(env.DISCORD_BOT_TOKEN);
+const rest = new REST({
+  version: '9',
+  userAgentAppendix: env.UA_STRING,
+}).setToken(env.DISCORD_BOT_TOKEN);
 
 const getServerRoles = (() => {
   let serverRolesCache: RESTGetAPIGuildRolesResult | undefined;
@@ -89,5 +92,6 @@ export const updateGuildCommands = async (clientId = env.DISCORD_CLIENT_ID, serv
   } catch (error) {
     console.log(`Failed to reloaded application (/) commands (SERVER_ID=${serverId})`);
     console.error(error);
+    process.exit(1);
   }
 };
