@@ -77,8 +77,8 @@ export const roleCommand: BotCommand = {
     const serverMember = findServerMember(interaction);
 
     let targetMember = serverMember;
-    const userOptionValue = options.getMember(OptionName.MEMBER, false);
-    if (userOptionValue && userOptionValue instanceof GuildMember) {
+    const memberOptionValue = options.getMember(OptionName.MEMBER, false);
+    if (memberOptionValue && memberOptionValue instanceof GuildMember) {
       const staffRole = findServerRoleByName(server, ServerRoleName.STAFF);
       const isStaff = serverMemberHasRole(serverMember, staffRole);
       if (!isStaff) {
@@ -89,7 +89,7 @@ export const roleCommand: BotCommand = {
         return;
       }
 
-      targetMember = userOptionValue;
+      targetMember = memberOptionValue;
     }
 
     const targetRoleName = options.getString(OptionName.ROLE, true) as ServerRoleName;

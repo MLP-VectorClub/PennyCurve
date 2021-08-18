@@ -4,7 +4,7 @@ import { BotCommand } from '../bot-interaction-types.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
 import { findServerTextChannelByName, getServer, isChannelName } from '../utils/client-utils.js';
 import { PhilomenaImageResponse } from '../types/philomena-api.js';
-import { respondWithDerpibooruImage } from '../utils/messaging.js';
+import { respondWithDerpibooruImage } from '../utils/shared-handlers.js';
 
 enum OptionName {
   QUERY = 'query',

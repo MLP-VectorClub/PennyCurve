@@ -19,7 +19,7 @@ export const getServer = (client: Client, serverId = env.SERVER_ID): Guild => {
   return foundServer;
 };
 
-export const findServerTextChannelByName = (server: Guild, name: ServerChannelName): TextChannel => {
+export const findServerTextChannelByName = <Name extends ServerChannelName>(server: Guild, name: Name): TextChannel & { name: Name } => {
   const foundChannel = server?.channels.cache
     .find((channel) => channel.name === name);
 
@@ -27,15 +27,15 @@ export const findServerTextChannelByName = (server: Guild, name: ServerChannelNa
   if (foundChannel.isThread()) throw new Error(`Found thread for name ${name}, expected GuildChannel`);
   if (!foundChannel.isText() || foundChannel.type !== 'GUILD_TEXT') throw new Error(`Found non-text channel for name ${name} (type=${foundChannel.type})`);
 
-  return foundChannel;
+  return foundChannel as TextChannel & { name: Name };
 };
 
-export const findServerRoleByName = (server: Guild, name: ServerRoleName): Role => {
+export const findServerRoleByName = <Name extends ServerRoleName>(server: Guild, name: Name): Role & { name: Name } => {
   const foundRole = server?.roles.cache.find((role) => role.name === name);
 
   if (!foundRole) throw new Error(`Could not find a role named ${name}`);
 
-  return foundRole;
+  return foundRole as Role & { name: Name };
 };
 
 export const isChannelName = (channel: TextBasedChannels | null | undefined, name: ServerChannelName): boolean => Boolean(channel && 'name' in channel && channel.name === name);

@@ -17,7 +17,10 @@ const processingErrorMessageFactory = (user: User): string => {
 
 const handleInteractionError = async (interaction: CommandInteraction | ButtonInteraction) => {
   if (!interaction.replied) {
-    await interaction.reply(processingErrorMessageFactory(interaction.user));
+    await interaction.reply({
+      content: processingErrorMessageFactory(interaction.user),
+      ephemeral: true,
+    });
     return;
   }
   // If we already replied, we need to do some editing on the existing message to include the error

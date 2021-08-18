@@ -12,6 +12,7 @@ export enum BotCommandName {
   PING = 'ping',
   ROLE = 'role',
   UPDATE_RULES = 'update-rules',
+  WELCOME = 'welcome',
 }
 
 export interface BotCommandPermission {
