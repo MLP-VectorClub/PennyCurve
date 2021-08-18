@@ -6,9 +6,9 @@ import { findServerTextChannelByName, getServer, isChannelName } from '../utils/
 import { PhilomenaImageResponse } from '../types/philomena-api.js';
 import { respondWithDerpibooruImage } from '../utils/messaging.js';
 
-enum Parameters {
+enum OptionName {
   QUERY = 'query',
-  ORDER = 'name',
+  ORDER = 'order',
   SORT = 'sort',
   AS_LINK = 'as-link',
   BRIEF = 'brief',
@@ -47,13 +47,13 @@ export const derpibooruCommand: BotCommand = {
     description: `Searches Derpibooru and returns the first result. Default filter is applied outside #${ServerChannelName.NSFW}`,
     options: [
       {
-        name: Parameters.QUERY,
+        name: OptionName.QUERY,
         description: 'Search query (same syntax is used for searching as on the site itself)',
         type: ApplicationCommandOptionType.String,
         required: true,
       },
       {
-        name: Parameters.ORDER,
+        name: OptionName.ORDER,
         description: `Ordering of the search results (default: \`${OrderOptions.DESCENDING}\`)`,
         type: ApplicationCommandOptionType.String,
         required: false,
@@ -69,7 +69,7 @@ export const derpibooruCommand: BotCommand = {
         ],
       },
       {
-        name: Parameters.SORT,
+        name: OptionName.SORT,
         description: `Same as "Sort by" on the actual site (default: \`${SortOptions.ID}\`)`,
         type: ApplicationCommandOptionType.String,
         required: false,
@@ -95,14 +95,14 @@ export const derpibooruCommand: BotCommand = {
         ],
       },
       {
-        name: Parameters.AS_LINK,
+        name: OptionName.AS_LINK,
         description: 'When true, simply returns the link to the search page instead of embedding the first result',
         type: ApplicationCommandOptionType.Boolean,
         required: false,
         default: false,
       },
       {
-        name: Parameters.BRIEF,
+        name: OptionName.BRIEF,
         description: 'When specified, details like the description, uploader and counters will not be shown in the embed',
         type: ApplicationCommandOptionType.Boolean,
         required: false,
@@ -112,12 +112,12 @@ export const derpibooruCommand: BotCommand = {
   },
   async handle(interaction) {
     const { channel, options } = interaction;
-    const query = options.getString(Parameters.QUERY, true);
+    const query = options.getString(OptionName.QUERY, true);
     const inNSFW = isChannelName(channel, ServerChannelName.NSFW);
-    const returnAsLink = options.getBoolean(Parameters.AS_LINK, false);
-    const briefEmbed = options.getBoolean(Parameters.BRIEF, false);
-    const order = options.getString(Parameters.ORDER, false);
-    const sort = options.getString(Parameters.SORT, false);
+    const returnAsLink = options.getBoolean(OptionName.AS_LINK, false);
+    const briefEmbed = options.getBoolean(OptionName.BRIEF, false);
+    const order = options.getString(OptionName.ORDER, false);
+    const sort = options.getString(OptionName.SORT, false);
 
     const parameters = [`q=${encodeURIComponent(query)}`];
     if (typeof order !== 'undefined') parameters.push(`sd=${order}`);

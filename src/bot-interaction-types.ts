@@ -2,14 +2,16 @@ import type { RESTPostAPIApplicationGuildCommandsJSONBody } from 'discord-api-ty
 import type { CommandInteraction, MessageButton } from 'discord.js';
 import { ButtonInteraction, Interaction } from 'discord.js';
 import { ServerRoleName } from './constants/server-role-name.js';
+import { BotButtonId } from './constants/bot-button-id.js';
 
 export enum BotCommandName {
   AGE = 'age',
-  PING = 'ping',
-  UPDATE_RULES = 'update-rules',
   CASUAL = 'casual',
   COLOR_GUIDE = 'cg',
   DERPIBOORU = 'db',
+  PING = 'ping',
+  ROLE = 'role',
+  UPDATE_RULES = 'update-rules',
 }
 
 export interface BotCommandPermission {
@@ -26,11 +28,11 @@ export type InteractionHandler<T extends Interaction> = (interaction: T) => void
 
 export interface BotCommand {
   definition: BotCommandDefinition;
-  handle: InteractionHandler<CommandInteraction>;
+  handle: InteractionHandler<CommandInteraction & { commandName: BotCommandName }>;
   permissions?: BotCommandPermission[];
 }
 
 export interface BotButton {
   factory: () => MessageButton;
-  handle: InteractionHandler<ButtonInteraction>;
+  handle: InteractionHandler<ButtonInteraction & { customId: BotButtonId }>;
 }

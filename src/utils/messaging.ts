@@ -13,7 +13,7 @@ import { condenseStringArray } from './strings.js';
 import { queueLazyPromises } from './promises.js';
 import { PhilomenaImageResponse } from '../types/philomena-api.js';
 import { makeButton } from '../buttons.js';
-import { ServerButtonId } from '../constants/server-button-id.js';
+import { BotButtonId } from '../constants/bot-button-id.js';
 
 export async function sendMessageSlices(channel: BaseGuildTextChannel, message: string): Promise<void> {
   const messageSlices = condenseStringArray(message.split(/\n\n/g), 2000, '\n\n');
@@ -53,8 +53,8 @@ export const respondWithDerpibooruImage = async (interaction: CommandInteraction
   const { processed } = image;
   if (!processed) {
     const row = new MessageActionRow().addComponents(
-      makeButton(ServerButtonId.RETRY),
-      makeButton(ServerButtonId.DELETE),
+      makeButton(BotButtonId.RETRY),
+      makeButton(BotButtonId.DELETE),
     );
     await interaction.reply({
       content: 'The requested image is not yet processed by Derpibooru, please try again in a bit',

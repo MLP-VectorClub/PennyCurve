@@ -6,7 +6,7 @@ import { ServerRoleName } from '../constants/server-role-name.js';
 import { loadAllMessages, sendMessageSlices } from '../utils/messaging.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 import { makeButton } from '../buttons.js';
-import { ServerButtonId } from '../constants/server-button-id.js';
+import { BotButtonId } from '../constants/bot-button-id.js';
 import { compileRulesText } from '../utils/rules.js';
 
 export const updateRulesCommand: BotCommand = {
@@ -36,7 +36,7 @@ export const updateRulesCommand: BotCommand = {
     await sendMessageSlices(welcomeChannel, rulesText);
 
     const row = new MessageActionRow().addComponents(
-      makeButton(ServerButtonId.AGREE_TO_RULES),
+      makeButton(BotButtonId.AGREE_TO_RULES),
     );
 
     await welcomeChannel.send({

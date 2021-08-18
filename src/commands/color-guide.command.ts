@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType } from 'discord-api-types';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 
-enum Parameters {
+enum OptionName {
   QUERY = 'name',
   GUIDE = 'guide',
 }
@@ -31,13 +31,13 @@ export const colorGuideCommand: BotCommand = {
     description: 'This command can be used to quickly find a color guide page using our website\'s search.',
     options: [
       {
-        name: Parameters.QUERY,
+        name: OptionName.QUERY,
         description: 'Enter the character or object\'s name. Does not need to be the full name.',
         type: ApplicationCommandOptionType.String,
         required: true,
       },
       {
-        name: Parameters.GUIDE,
+        name: OptionName.GUIDE,
         description: 'name of the guide to search in, defaults to the Friendship is Magic guide',
         type: ApplicationCommandOptionType.String,
         required: false,
@@ -59,8 +59,8 @@ export const colorGuideCommand: BotCommand = {
     ],
   },
   async handle(interaction) {
-    const query = interaction.options.getString(Parameters.QUERY, true);
-    const guideName = interaction.options.getString(Parameters.GUIDE) || GuideNames.FRIENDSHIP_IS_MAGIC;
+    const query = interaction.options.getString(OptionName.QUERY, true);
+    const guideName = interaction.options.getString(OptionName.GUIDE) || GuideNames.FRIENDSHIP_IS_MAGIC;
     const url = `/cg/${guideName}?btnl&json&q=${encodeURIComponent(query)}`;
 
     const { data } = await axios.get(url, {

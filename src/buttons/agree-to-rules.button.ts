@@ -1,7 +1,8 @@
-import { GuildMember, MessageButton } from 'discord.js';
+import { MessageButton } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 import {
+  findServerMember,
   findServerRoleByName,
   findServerTextChannelByName,
   getServer,
@@ -15,16 +16,7 @@ export const agreeToRulesButton: BotButton = {
     .setStyle('SECONDARY')
     .setEmoji(EmojiCharacters.BALLOT_BOX_WITH_CHECK),
   async handle(interaction) {
-    const serverMember = interaction.member;
-
-    if (!serverMember) {
-      throw new Error('Could not find `member` on interaction');
-    }
-
-    if (!(serverMember instanceof GuildMember)) {
-      throw new Error('Expected `serverMember` to be an instance of GuildMember');
-    }
-
+    const serverMember = findServerMember(interaction);
     const server = getServer(interaction.client);
     const informedRole = findServerRoleByName(server, ServerRoleName.INFORMED);
 
@@ -39,7 +31,7 @@ export const agreeToRulesButton: BotButton = {
 
     // TODO Handle suspicious names
 
-    await serverMember.roles.add(informedRole);
+    await serverMember.roles.add(informedRole, 'Agreed to the rules');
 
     const casualChannel = findServerTextChannelByName(server, ServerChannelName.CASUAL);
 
