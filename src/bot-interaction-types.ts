@@ -13,6 +13,7 @@ export enum BotCommandName {
   PING = 'ping',
   REKT = 'rekt',
   ROLE = 'role',
+  SAY = 'say',
   UPDATE_RULES = 'update-rules',
   WELCOME = 'welcome',
   YES = 'yes',

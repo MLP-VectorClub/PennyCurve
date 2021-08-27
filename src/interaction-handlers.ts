@@ -6,6 +6,11 @@ import { commandMap, isKnownCommandInteraction } from './commands.js';
 import { EmojiCharacters } from './constants/emoji-characters.js';
 import { buttonMap, isKnownButtonInteraction } from './buttons.js';
 import { isSameObject } from './utils/client-utils.js';
+import {
+  getUserIdentifier,
+  stringifyChannelName,
+  stringifyOptionsData,
+} from './utils/messaging.js';
 
 const ellipsis = '…';
 
@@ -42,8 +47,15 @@ export const handleCommandInteraction = async (interaction: CommandInteraction):
     return;
   }
 
-  const { commandName } = interaction;
+  const {
+    commandName, user, options, channel,
+  } = interaction;
   const command = commandMap[commandName];
+
+  const optionsString = options.data.length > 0
+    ? ` ${stringifyOptionsData(interaction.options.data)}`
+    : '';
+  console.log(`${getUserIdentifier(user)} ran /${commandName}${optionsString} in ${stringifyChannelName(channel)}`);
 
   try {
     await command.handle(interaction);
@@ -64,8 +76,10 @@ export const handleButtonInteraction = async (interaction: Interaction): Promise
     return;
   }
 
-  const { customId } = interaction;
+  const { customId, user } = interaction;
   const button = buttonMap[customId];
+
+  console.log(`${getUserIdentifier(user)} pressed button ${customId}`);
 
   try {
     await button.handle(interaction);
