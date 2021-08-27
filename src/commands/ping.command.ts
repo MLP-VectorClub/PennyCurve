@@ -1,13 +1,4 @@
 import { BotCommand } from '../bot-interaction-types.js';
+import { fixedReplyCommandFactory } from '../utils/fixed-reply-command-factory.js';
 
-export const pingCommand: BotCommand = {
-  definition: {
-    description: 'Replies with Pong!',
-  },
-  async handle(interaction) {
-    await interaction.reply({
-      content: 'Pong!',
-      ephemeral: true,
-    });
-  },
-};
+export const pingCommand: BotCommand = fixedReplyCommandFactory('Replies with Pong!', 'Pong!', true);

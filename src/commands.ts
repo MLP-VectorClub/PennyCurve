@@ -9,6 +9,9 @@ import { colorGuideCommand } from './commands/color-guide.command.js';
 import { derpibooruCommand } from './commands/derpibooru.command.js';
 import { roleCommand } from './commands/role.command.js';
 import { welcomeCommand } from './commands/welcome.command.js';
+import { niceCommand } from './commands/nice.command.js';
+import { rektCommand } from './commands/rekt.command.js';
+import { yesCommand } from './commands/yes.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.PING]: pingCommand,
@@ -19,6 +22,9 @@ export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.DERPIBOORU]: derpibooruCommand,
   [BotCommandName.ROLE]: roleCommand,
   [BotCommandName.WELCOME]: welcomeCommand,
+  [BotCommandName.NICE]: niceCommand,
+  [BotCommandName.REKT]: rektCommand,
+  [BotCommandName.YES]: yesCommand,
 };
 
 export const commandNames = (Object.keys(commandMap) as BotCommandName[]);

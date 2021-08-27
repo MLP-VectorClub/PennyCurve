@@ -9,10 +9,13 @@ export enum BotCommandName {
   CASUAL = 'casual',
   COLOR_GUIDE = 'cg',
   DERPIBOORU = 'db',
+  NICE = 'nice',
   PING = 'ping',
+  REKT = 'rekt',
   ROLE = 'role',
   UPDATE_RULES = 'update-rules',
   WELCOME = 'welcome',
+  YES = 'yes',
 }
 
 export interface BotCommandPermission {
