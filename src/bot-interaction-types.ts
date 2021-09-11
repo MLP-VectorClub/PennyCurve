@@ -14,6 +14,7 @@ export enum BotCommandName {
   REKT = 'rekt',
   ROLE = 'role',
   SAY = 'say',
+  TUTORIAL = 'tut',
   UPDATE_RULES = 'update-rules',
   WELCOME = 'welcome',
   YES = 'yes',

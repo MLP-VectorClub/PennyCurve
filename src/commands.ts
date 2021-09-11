@@ -13,6 +13,7 @@ import { niceCommand } from './commands/nice.command.js';
 import { rektCommand } from './commands/rekt.command.js';
 import { yesCommand } from './commands/yes.command.js';
 import { sayCommand } from './commands/say.command.js';
+import { tutorialCommand } from './commands/tutorial.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.PING]: pingCommand,
@@ -27,6 +28,7 @@ export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.REKT]: rektCommand,
   [BotCommandName.YES]: yesCommand,
   [BotCommandName.SAY]: sayCommand,
+  [BotCommandName.TUTORIAL]: tutorialCommand,
 };
 
 export const commandNames = (Object.keys(commandMap) as BotCommandName[]);
