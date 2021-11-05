@@ -9,6 +9,7 @@ export enum BotCommandName {
   CASUAL = 'casual',
   COLOR_GUIDE = 'cg',
   DERPIBOORU = 'db',
+  FIX_NICK = 'fixnick',
   NICE = 'nice',
   PING = 'ping',
   REKT = 'rekt',

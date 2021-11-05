@@ -5,10 +5,14 @@ import { BotButtonId } from './constants/bot-button-id.js';
 import { agreeToRulesButton } from './buttons/agree-to-rules.button.js';
 import { removeButton } from './buttons/remove-button.js';
 import { retryButton } from './buttons/retry.button.js';
+import { nickFormatButton } from './buttons/nick-format-button.js';
 
 export const buttonMap: Record<BotButtonId, BotButton> = {
   [BotButtonId.AGREE_TO_RULES]: agreeToRulesButton,
   [BotButtonId.DELETE]: removeButton,
+  [BotButtonId.NICK_FORMAT_BRACKETS]: nickFormatButton,
+  [BotButtonId.NICK_FORMAT_PIPE]: nickFormatButton,
+  [BotButtonId.NICK_FORMAT_RESET]: nickFormatButton,
   [BotButtonId.RETRY]: retryButton,
 };
 
