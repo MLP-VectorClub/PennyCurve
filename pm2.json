@@ -2,8 +2,7 @@
   "apps": [
     {
       "name": "PennyCurve",
-      "script": "./discord-bot.js",
-      "node_args": "--max-old-space-size=128",
+      "script": "build/index.js",
       "log_date_format": "YYYY-MM-DD HH:mm:ss Z"
     }
   ]
