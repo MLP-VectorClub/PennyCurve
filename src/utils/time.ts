@@ -25,6 +25,10 @@ export class MessageTimestamp {
   toString(tsFormat?: undefined): `<t:${string}:${MessageTimestampFormat.LONG_FULL}>`;
 
   toString<F extends MessageTimestampFormat>(tsFormat?: F): `<t:${string}:${F | MessageTimestampFormat.LONG_FULL}>` {
-    return `<t:${format(this.date, 't')}:${tsFormat || MessageTimestampFormat.LONG_FULL}>`;
+    return MessageTimestamp.fromTimestamp(format(this.date, 't'), tsFormat);
+  }
+
+  static fromTimestamp<F extends MessageTimestampFormat>(unixTimestamp: string | number, tsFormat?: F): `<t:${string}:${F | MessageTimestampFormat.LONG_FULL}>` {
+    return `<t:${unixTimestamp}:${tsFormat || MessageTimestampFormat.LONG_FULL}>`;
   }
 }

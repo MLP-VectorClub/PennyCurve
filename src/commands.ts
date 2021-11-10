@@ -15,6 +15,7 @@ import { yesCommand } from './commands/yes.command.js';
 import { sayCommand } from './commands/say.command.js';
 import { tutorialCommand } from './commands/tutorial.command.js';
 import { fixNickCommand } from './commands/fixnick.command.js';
+import { versionCommand } from './commands/version.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.PING]: pingCommand,
@@ -31,6 +32,7 @@ export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.SAY]: sayCommand,
   [BotCommandName.TUTORIAL]: tutorialCommand,
   [BotCommandName.FIX_NICK]: fixNickCommand,
+  [BotCommandName.VERSION]: versionCommand,
 };
 
 export const commandNames = (Object.keys(commandMap) as BotCommandName[]);

@@ -19,6 +19,7 @@ export enum BotCommandName {
   UPDATE_RULES = 'update-rules',
   WELCOME = 'welcome',
   YES = 'yes',
+  VERSION = 'version',
 }
 
 export interface BotCommandPermission {
