@@ -1,4 +1,4 @@
-# Penny Curve ![Unit Tests workflow status](https://github.com/MLP-VectorClub/PennyCurve/workflows/Unit%20Tests/badge.svg)
+# Penny Curve ![Workflow status](https://github.com/MLP-VectorClub/PennyCurve/workflows/Build/badge.svg)
 
 Chat bot written in Node.js (using [discord.js](https://www.npmjs.com/package/discord.js)) for the [MLP Vector Club]'s Discord server
 

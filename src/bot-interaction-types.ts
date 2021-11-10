@@ -1,6 +1,6 @@
-import type { RESTPostAPIApplicationGuildCommandsJSONBody } from 'discord-api-types/rest/v9';
 import type { CommandInteraction, MessageButton } from 'discord.js';
 import { ButtonInteraction, Interaction } from 'discord.js';
+import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/rest/v9/interactions.js';
 import { ServerRoleName } from './constants/server-role-name.js';
 import { BotButtonId } from './constants/bot-button-id.js';
 
@@ -31,7 +31,7 @@ export interface BotCommandPermission {
   revoke?: true;
 }
 
-export type BotCommandDefinition = Omit<RESTPostAPIApplicationGuildCommandsJSONBody, 'name'>;
+export type BotCommandDefinition = Omit<RESTPostAPIChatInputApplicationCommandsJSONBody, 'name' | 'type'>;
 
 export type InteractionHandler<T extends Interaction> = (interaction: T) => void | Promise<void>;
 
