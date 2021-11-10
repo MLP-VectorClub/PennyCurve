@@ -12,7 +12,7 @@ const config = {
     'src/(.*)': '<rootDir>/src/$1',
   },
   resolver: 'jest-ts-webcompat-resolver',
-  setupFilesAfterEnv: ['./setup-tests.ts'],
+  setupFilesAfterEnv: ['./tests/setup-tests.ts'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.test.json',
