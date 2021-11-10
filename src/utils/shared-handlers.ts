@@ -96,13 +96,12 @@ export const respondWithDerpibooruImage = async (interaction: CommandInteraction
     .setStyle('LINK')
     .setURL(url);
 
-  const sourceButton = new MessageButton().setLabel('View source').setStyle('LINK');
+  const row = new MessageActionRow().addComponents(derpiButton);
   if (sourceUrl) {
-    sourceButton.setURL(sourceUrl);
-  } else {
-    sourceButton.setDisabled(true);
+    const sourceButton = new MessageButton().setLabel('View source')
+      .setStyle('LINK')
+      .setURL(sourceUrl);
+    row.addComponents(sourceButton);
   }
-
-  const row = new MessageActionRow().addComponents(derpiButton, sourceButton);
   await interaction.reply({ embeds: [embed], components: [row] });
 };
