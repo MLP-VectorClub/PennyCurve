@@ -1,4 +1,5 @@
-export default {
+/** @type {import('@jest/types').Config.InitialOptions} */
+const config = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
@@ -11,9 +12,12 @@ export default {
     'src/(.*)': '<rootDir>/src/$1',
   },
   resolver: 'jest-ts-webcompat-resolver',
+  setupFilesAfterEnv: ['./setup-tests.ts'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.test.json',
     },
   },
 };
+
+export default config;

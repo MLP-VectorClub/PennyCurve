@@ -1,28 +1,42 @@
-import { getNicknameParts } from './nicknames';
+import { getNicknameParts, NicknameParts } from './nicknames';
 
 describe('string utils', () => {
   describe('getDeviantArtName', () => {
     it('should work for pipe syntax', () => {
-      expect(getNicknameParts('DaName | Discord Name')).toEqual('DaName');
-      expect(getNicknameParts('Da-Name2 | Discord Name | Decoy')).toEqual('Da-Name2');
-      expect(getNicknameParts('123abcdefg-AAA | What | ever')).toEqual('123abcdefg-AAA');
-      expect(getNicknameParts('- | Hel|lo th|ere')).toEqual('-');
+      let expected: NicknameParts = { nick: 'Discord Name', daName: 'DaName' };
+      expect(getNicknameParts('DaName | Discord Name')).toEqual(expected);
+      expected = { nick: 'Discord Name | Decoy', daName: 'Da-Name2' };
+      expect(getNicknameParts('Da-Name2 | Discord Name | Decoy')).toEqual(expected);
+      expected = { nick: 'What | ever', daName: '123abcdefg-AAA' };
+      expect(getNicknameParts('123abcdefg-AAA | What | ever')).toEqual(expected);
+      expected = { nick: 'Hel|lo th|ere', daName: '-' };
+      expect(getNicknameParts('- | Hel|lo th|ere')).toEqual(expected);
     });
 
     it('should work for brackets syntax', () => {
-      expect(getNicknameParts('Discord Name (DaName)')).toEqual('DaName');
-      expect(getNicknameParts('Discord Name (Decoy) (Da-Name2)')).toEqual('Da-Name2');
-      expect(getNicknameParts('(What) ever (123abcdefg-AAA)')).toEqual('123abcdefg-AAA');
-      expect(getNicknameParts('Hel(lo th)ere (-)')).toEqual('-');
+      let expected: NicknameParts = { nick: 'Discord Name', daName: 'DaName' };
+      expect(getNicknameParts('Discord Name (DaName)')).toEqual(expected);
+      expected = { nick: 'Discord Name (Decoy)', daName: 'Da-Name2' };
+      expect(getNicknameParts('Discord Name (Decoy) (Da-Name2)')).toEqual(expected);
+      expected = { nick: '(What) ever', daName: '123abcdefg-AAA' };
+      expect(getNicknameParts('(What) ever (123abcdefg-AAA)')).toEqual(expected);
+      expected = { nick: 'Hel(lo th)ere', daName: '-' };
+      expect(getNicknameParts('Hel(lo th)ere (-)')).toEqual(expected);
     });
 
     it('should return null for invalid input', () => {
-      expect(getNicknameParts('SomeRandomName')).toBeNull();
-      expect(getNicknameParts('Unbalan(edBra(kets')).toBeNull();
-      expect(getNicknameParts('Spaceless|Pipe')).toBeNull();
-      expect(getNicknameParts('Spaceless(Brackets)')).toBeNull();
-      expect(getNicknameParts('Brackets in (the wrong) place')).toBeNull();
-      expect(getNicknameParts('Space before | text preceding pipe')).toBeNull();
+      let expected: NicknameParts = { nick: 'SomeRandomName', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
+      expected = { nick: 'Unbalan(edBra(kets', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
+      expected = { nick: 'Spaceless|Pipe', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
+      expected = { nick: 'Spaceless(Brackets)', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
+      expected = { nick: 'Brackets in (the wrong) place', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
+      expected = { nick: 'Space before | text preceding pipe', daName: null };
+      expect(getNicknameParts(expected.nick)).toEqual(expected);
     });
   });
 });
