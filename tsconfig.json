@@ -12,5 +12,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2016"
-  }
+  },
+  "exclude": [
+    "tests"
+  ]
 }

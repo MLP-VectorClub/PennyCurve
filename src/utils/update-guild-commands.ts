@@ -4,12 +4,12 @@ import {
   RESTPutAPIGuildApplicationCommandsPermissionsJSONBody,
   Routes,
 } from 'discord-api-types/rest/v9';
-import type { APIRole } from 'discord-api-types';
-import { REST } from '@discordjs/rest';
 import {
   APIApplicationCommandPermission,
+  APIRole,
   ApplicationCommandPermissionType,
-} from 'discord-api-types/payloads/v9/_interactions/slashCommands.js';
+} from 'discord-api-types';
+import { REST } from '@discordjs/rest';
 import { commandMap, commands, isKnownCommand } from '../commands.js';
 import { env } from '../env.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
