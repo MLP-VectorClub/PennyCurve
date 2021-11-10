@@ -16,23 +16,25 @@ import { sayCommand } from './commands/say.command.js';
 import { tutorialCommand } from './commands/tutorial.command.js';
 import { fixNickCommand } from './commands/fixnick.command.js';
 import { versionCommand } from './commands/version.command.js';
+import { joinedCommand } from './commands/joined.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
-  [BotCommandName.PING]: pingCommand,
-  [BotCommandName.UPDATE_RULES]: updateRulesCommand,
   [BotCommandName.AGE]: ageCommand,
   [BotCommandName.CASUAL]: casualCommand,
   [BotCommandName.COLOR_GUIDE]: colorGuideCommand,
   [BotCommandName.DERPIBOORU]: derpibooruCommand,
-  [BotCommandName.ROLE]: roleCommand,
-  [BotCommandName.WELCOME]: welcomeCommand,
+  [BotCommandName.FIX_NICK]: fixNickCommand,
+  [BotCommandName.JOINED]: joinedCommand,
   [BotCommandName.NICE]: niceCommand,
+  [BotCommandName.PING]: pingCommand,
   [BotCommandName.REKT]: rektCommand,
-  [BotCommandName.YES]: yesCommand,
+  [BotCommandName.ROLE]: roleCommand,
   [BotCommandName.SAY]: sayCommand,
   [BotCommandName.TUTORIAL]: tutorialCommand,
-  [BotCommandName.FIX_NICK]: fixNickCommand,
+  [BotCommandName.UPDATE_RULES]: updateRulesCommand,
   [BotCommandName.VERSION]: versionCommand,
+  [BotCommandName.WELCOME]: welcomeCommand,
+  [BotCommandName.YES]: yesCommand,
 };
 
 export const commandNames = (Object.keys(commandMap) as BotCommandName[]);

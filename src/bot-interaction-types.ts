@@ -10,6 +10,7 @@ export enum BotCommandName {
   COLOR_GUIDE = 'cg',
   DERPIBOORU = 'db',
   FIX_NICK = 'fixnick',
+  JOINED = 'joined',
   NICE = 'nice',
   PING = 'ping',
   REKT = 'rekt',
@@ -17,9 +18,9 @@ export enum BotCommandName {
   SAY = 'say',
   TUTORIAL = 'tut',
   UPDATE_RULES = 'update-rules',
+  VERSION = 'version',
   WELCOME = 'welcome',
   YES = 'yes',
-  VERSION = 'version',
 }
 
 export interface BotCommandPermission {
