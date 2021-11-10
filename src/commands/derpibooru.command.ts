@@ -149,7 +149,7 @@ export const derpibooruCommand: BotCommand = {
       if (!/(artist|oc):/.test(query)) {
         responseText.push('Don\'t forget that artist and OC tags need to be prefixed with `artist:` and `oc:` respectively.');
       }
-      await interaction.reply(responseText.join(''));
+      await interaction.reply(responseText.join(' '));
       return;
     }
 
