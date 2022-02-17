@@ -5,7 +5,7 @@ echo "Push triggered update to revision $newrev ($refname)"
 GIT="env -i git"
 CMD_PWD="cd .. && pwd"
 CMD_FETCH="$GIT fetch"
-CMD_NPM_INSTALL="npm install --production --no-save"
+CMD_NPM_INSTALL="npm ci"
 CMD_NPM_BUILD="npm run build"
 CMD_RESTART="pm2 restart pm2.json"
 
