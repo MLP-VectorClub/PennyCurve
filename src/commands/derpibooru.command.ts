@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from 'discord-api-types';
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
@@ -99,14 +99,12 @@ export const derpibooruCommand: BotCommand = {
         description: 'When true, simply returns the link to the search page instead of embedding the first result',
         type: ApplicationCommandOptionType.Boolean,
         required: false,
-        default: false,
       },
       {
         name: OptionName.BRIEF,
         description: 'When specified, details like the description, uploader and counters will not be shown in the embed',
         type: ApplicationCommandOptionType.Boolean,
         required: false,
-        default: false,
       },
     ],
   },
@@ -114,8 +112,8 @@ export const derpibooruCommand: BotCommand = {
     const { channel, options } = interaction;
     const query = options.getString(OptionName.QUERY, true);
     const inNSFW = isChannelName(channel, ServerChannelName.NSFW);
-    const returnAsLink = options.getBoolean(OptionName.AS_LINK, false);
-    const briefEmbed = options.getBoolean(OptionName.BRIEF, false);
+    const returnAsLink = options.getBoolean(OptionName.AS_LINK, false) ?? false;
+    const briefEmbed = options.getBoolean(OptionName.BRIEF, false) ?? false;
     const order = options.getString(OptionName.ORDER, false);
     const sort = options.getString(OptionName.SORT, false);
 
@@ -153,6 +151,6 @@ export const derpibooruCommand: BotCommand = {
       return;
     }
 
-    await respondWithDerpibooruImage(interaction, data.images[0], briefEmbed === true);
+    await respondWithDerpibooruImage(interaction, data.images[0], briefEmbed);
   },
 };

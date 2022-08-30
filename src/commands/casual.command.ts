@@ -1,4 +1,5 @@
 import { getMinutes } from 'date-fns';
+import { ChannelType } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
 import { env } from '../env.js';
@@ -27,7 +28,7 @@ export const casualCommand: BotCommand = {
   },
   async handle(interaction) {
     const { channel } = interaction;
-    if (!channel || !channel.isText() || !('name' in channel) || channel.name === ServerChannelName.CASUAL) {
+    if (!channel || channel.type !== ChannelType.GuildText || !('name' in channel) || channel.name === ServerChannelName.CASUAL) {
       await interaction.reply({
         content: 'This command cannot be used in this channel.',
         ephemeral: true,

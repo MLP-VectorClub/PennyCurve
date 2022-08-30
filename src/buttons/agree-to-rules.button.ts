@@ -1,16 +1,14 @@
-import {
-  Guild, GuildChannel, MessageButton, User,
-} from 'discord.js';
+import { ButtonBuilder, ButtonStyle, Guild, GuildChannel, User } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
+import { ServerChannelName } from '../constants/server-channel-name.js';
+import { ServerRoleName } from '../constants/server-role-name.js';
 import {
   findServerMember,
   findServerRoleByName,
   findServerTextChannelByName,
   getServer,
 } from '../utils/client-utils.js';
-import { ServerRoleName } from '../constants/server-role-name.js';
-import { ServerChannelName } from '../constants/server-channel-name.js';
 
 export const welcomeUser = async (user: User, server: Guild): Promise<GuildChannel & { name: ServerChannelName.CASUAL }> => {
   const casualChannel = findServerTextChannelByName(server, ServerChannelName.CASUAL);
@@ -19,9 +17,9 @@ export const welcomeUser = async (user: User, server: Guild): Promise<GuildChann
 };
 
 export const agreeToRulesButton: BotButton = {
-  factory: () => new MessageButton()
+  factory: () => new ButtonBuilder()
     .setLabel('I have read and agree to the rules')
-    .setStyle('SECONDARY')
+    .setStyle(ButtonStyle.Secondary)
     .setEmoji(EmojiCharacters.BALLOT_BOX_WITH_CHECK),
   async handle(interaction) {
     const serverMember = findServerMember(interaction);

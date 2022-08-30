@@ -1,7 +1,7 @@
-import { Client, Intents } from 'discord.js';
+import { Client, GatewayIntentBits, InteractionType } from 'discord.js';
 import { env } from './env.js';
-import { getGitData } from './utils/get-git-data.js';
 import { handleButtonInteraction, handleCommandInteraction } from './interaction-handlers.js';
+import { getGitData } from './utils/get-git-data.js';
 
 const handleReady = async (client: Client<true>) => {
   const clientUser = client.user;
@@ -15,12 +15,12 @@ const handleReady = async (client: Client<true>) => {
 };
 
 export const createClient = async (): Promise<void> => {
-  const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+  const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
   client.on('ready', handleReady);
 
   client.on('interactionCreate', async (interaction) => {
-    if (interaction.isCommand()) {
+    if (interaction.type === InteractionType.ApplicationCommand) {
       await handleCommandInteraction(interaction);
       return;
     }

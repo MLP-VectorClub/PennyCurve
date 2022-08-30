@@ -1,11 +1,11 @@
-import { MessageButton } from 'discord.js';
+import { ButtonBuilder, ButtonStyle } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
 import { findServerMember } from '../utils/client-utils.js';
 import { getNicknameInFormat, getNicknameParts, NicknameFormat } from '../utils/nicknames.js';
 
 export const nickFormatButton: BotButton = {
-  factory: () => new MessageButton().setStyle('SECONDARY'),
+  factory: () => new ButtonBuilder().setStyle(ButtonStyle.Secondary),
   async handle(interaction) {
     const serverMember = findServerMember(interaction);
 

@@ -1,7 +1,6 @@
-import { ApplicationCommandOptionType } from 'discord-api-types';
-import { GuildChannel } from 'discord.js';
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
+import { ChannelType, GuildChannel } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
-import { ServerRoleName } from '../constants/server-role-name.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 
 enum OptionName {
@@ -28,16 +27,16 @@ export const sayCommand: BotCommand = {
       },
     ],
   },
-  permissions: [{
-    target: ServerRoleName.STAFF,
-  }],
   async handle(interaction) {
     const channel = interaction.options.getChannel(OptionName.CHANNEL, true);
     const rawMessage = interaction.options.getString(OptionName.MESSAGE, true);
 
     const actualMessage = rawMessage.trim();
     if (actualMessage.length === 0) {
-      await interaction.reply({ content: 'The provided message cannot be empty', ephemeral: true });
+      await interaction.reply({
+        content: 'The provided message cannot be empty',
+        ephemeral: true,
+      });
       return;
     }
 
@@ -45,7 +44,7 @@ export const sayCommand: BotCommand = {
       throw new Error('Expected `channel` to be an instance of GuildChannel');
     }
 
-    if (!(channel.isText())) {
+    if (channel.type !== ChannelType.GuildText) {
       await interaction.reply({
         content: 'The provided channel is not a text channel',
         ephemeral: true,

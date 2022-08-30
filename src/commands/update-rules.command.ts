@@ -1,21 +1,17 @@
-import { MessageActionRow } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
-import { ServerChannelName } from '../constants/server-channel-name.js';
-import { findServerTextChannelByName, getServer } from '../utils/client-utils.js';
-import { ServerRoleName } from '../constants/server-role-name.js';
-import { loadAllMessages, sendMessageSlices } from '../utils/messaging.js';
-import { EmojiCharacters } from '../constants/emoji-characters.js';
 import { makeButton } from '../buttons.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
+import { EmojiCharacters } from '../constants/emoji-characters.js';
+import { ServerChannelName } from '../constants/server-channel-name.js';
+import { findServerTextChannelByName, getServer } from '../utils/client-utils.js';
+import { loadAllMessages, sendMessageSlices } from '../utils/messaging.js';
 import { compileRulesText } from '../utils/rules.js';
 
 export const updateRulesCommand: BotCommand = {
   definition: {
     description: `Updates the rules in the #${ServerChannelName.WELCOME} channel`,
   },
-  permissions: [{
-    target: ServerRoleName.STAFF,
-  }],
   async handle(interaction) {
     const actionPrefix = 'Updating rules: ';
     await interaction.reply(`${actionPrefix} Fetching #${ServerChannelName.WELCOME} channel`);
@@ -35,7 +31,7 @@ export const updateRulesCommand: BotCommand = {
 
     await sendMessageSlices(welcomeChannel, rulesText);
 
-    const row = new MessageActionRow().addComponents(
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       makeButton(BotButtonId.AGREE_TO_RULES),
     );
 

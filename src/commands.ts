@@ -1,23 +1,25 @@
-import { RESTPostAPIApplicationGuildCommandsJSONBody as ApplicationGuildCommand } from 'discord-api-types/rest/v9/interactions.js';
-import { CommandInteraction } from 'discord.js';
-import { ApplicationCommandType } from 'discord-api-types';
-import { pingCommand } from './commands/ping.command.js';
+import {
+  RESTPostAPIApplicationGuildCommandsJSONBody as ApplicationGuildCommand,
+} from 'discord-api-types/rest/v10';
+import { ApplicationCommandType } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { BotCommand, BotCommandName } from './bot-interaction-types.js';
-import { updateRulesCommand } from './commands/update-rules.command.js';
 import { ageCommand } from './commands/age.command.js';
 import { casualCommand } from './commands/casual.command.js';
 import { colorGuideCommand } from './commands/color-guide.command.js';
 import { derpibooruCommand } from './commands/derpibooru.command.js';
-import { roleCommand } from './commands/role.command.js';
-import { welcomeCommand } from './commands/welcome.command.js';
+import { fixNickCommand } from './commands/fixnick.command.js';
+import { joinedCommand } from './commands/joined.command.js';
 import { niceCommand } from './commands/nice.command.js';
+import { pingCommand } from './commands/ping.command.js';
 import { rektCommand } from './commands/rekt.command.js';
-import { yesCommand } from './commands/yes.command.js';
+import { roleCommand } from './commands/role.command.js';
 import { sayCommand } from './commands/say.command.js';
 import { tutorialCommand } from './commands/tutorial.command.js';
-import { fixNickCommand } from './commands/fixnick.command.js';
+import { updateRulesCommand } from './commands/update-rules.command.js';
 import { versionCommand } from './commands/version.command.js';
-import { joinedCommand } from './commands/joined.command.js';
+import { welcomeCommand } from './commands/welcome.command.js';
+import { yesCommand } from './commands/yes.command.js';
 
 export const commandMap: Record<BotCommandName, BotCommand> = {
   [BotCommandName.AGE]: ageCommand,
@@ -48,4 +50,4 @@ export const commands: ApplicationGuildCommand[] = commandNames.map((commandName
 
 export const isKnownCommand = (commandName: string): commandName is BotCommandName => commandName in commandMap;
 
-export const isKnownCommandInteraction = (interaction: CommandInteraction): interaction is CommandInteraction & { commandName: BotCommandName } => isKnownCommand(interaction.commandName);
+export const isKnownCommandInteraction = <InteractionType extends ChatInputCommandInteraction>(interaction: InteractionType): interaction is InteractionType & { commandName: BotCommandName } => isKnownCommand(interaction.commandName);
