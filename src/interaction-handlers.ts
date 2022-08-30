@@ -1,5 +1,6 @@
 import {
-  ButtonInteraction, CommandInteraction, Interaction, User,
+  ApplicationCommandType,
+  ButtonInteraction, ChatInputCommandInteraction, CommandInteraction, Interaction, User,
 } from 'discord.js';
 import { env } from './env.js';
 import { commandMap, isKnownCommandInteraction } from './commands.js';
@@ -41,7 +42,16 @@ const handleInteractionError = async (interaction: CommandInteraction | ButtonIn
   });
 };
 
+const isChatInputCommandInteraction = (interaction: CommandInteraction): interaction is ChatInputCommandInteraction => {
+  return interaction.commandType === ApplicationCommandType.ChatInput;
+};
+
 export const handleCommandInteraction = async (interaction: CommandInteraction): Promise<void> => {
+  if (!isChatInputCommandInteraction(interaction)) {
+    await interaction.reply(`Unsupported command type ${interaction.commandName}`);
+    return;
+  }
+
   if (!isKnownCommandInteraction(interaction)) {
     await interaction.reply(`Unknown command ${interaction.commandName}`);
     return;

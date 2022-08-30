@@ -1,9 +1,8 @@
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import { GuildMember } from 'discord.js';
-import { ApplicationCommandOptionType } from 'discord-api-types';
 import { BotCommand } from '../bot-interaction-types.js';
-import { ServerRoleName } from '../constants/server-role-name.js';
-import { getServer } from '../utils/client-utils.js';
 import { welcomeUser } from '../buttons/agree-to-rules.button.js';
+import { getServer } from '../utils/client-utils.js';
 
 enum OptionName {
   MEMBER = 'member',
@@ -21,11 +20,8 @@ export const welcomeCommand: BotCommand = {
       },
     ],
   },
-  permissions: [{
-    target: ServerRoleName.STAFF,
-  }],
   async handle(interaction) {
-    const memberOptionValue = interaction.options.getMember(OptionName.MEMBER, true);
+    const memberOptionValue = interaction.options.getMember(OptionName.MEMBER);
     if (!(memberOptionValue instanceof GuildMember)) {
       throw new Error('Expected `memberOptionValue` to be an instance of GuildMember');
     }

@@ -1,11 +1,11 @@
-import { MessageButton } from 'discord.js';
+import { ButtonBuilder, ButtonStyle } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 
 export const retryButton: BotButton = {
-  factory: () => new MessageButton()
+  factory: () => new ButtonBuilder()
     .setLabel('Retry')
-    .setStyle('SECONDARY')
+    .setStyle(ButtonStyle.Secondary)
     .setEmoji(EmojiCharacters.COUNTERCLOCKWISE_ARROWS_BUTTON)
     .setDisabled(true),
   async handle(interaction) {

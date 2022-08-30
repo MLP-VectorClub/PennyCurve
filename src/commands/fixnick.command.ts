@@ -1,9 +1,8 @@
-import { MessageActionRow } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
-import { ServerRoleName } from '../constants/server-role-name.js';
-import { findServerMember } from '../utils/client-utils.js';
 import { makeButton } from '../buttons.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
+import { findServerMember } from '../utils/client-utils.js';
 import { getNicknameInFormat, getNicknameParts, NicknameFormat } from '../utils/nicknames.js';
 
 export const fixNickCommand: BotCommand = {
@@ -11,9 +10,6 @@ export const fixNickCommand: BotCommand = {
     description: 'Change how your DeviantArt username is displayed alongside your Discord name',
     default_permission: false,
   },
-  permissions: [{
-    target: ServerRoleName.STAFF,
-  }],
   async handle(interaction) {
     const serverMember = findServerMember(interaction);
 
@@ -36,7 +32,7 @@ export const fixNickCommand: BotCommand = {
       return;
     }
 
-    const row = new MessageActionRow().addComponents(
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       makeButton(BotButtonId.NICK_FORMAT_RESET)
         .setLabel(getNicknameInFormat(parts, NicknameFormat.UNKNOWN)),
       makeButton(BotButtonId.NICK_FORMAT_BRACKETS)

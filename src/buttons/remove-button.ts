@@ -1,11 +1,11 @@
-import { MessageButton } from 'discord.js';
+import { ButtonBuilder, ButtonStyle } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 
 export const removeButton: BotButton = {
-  factory: () => new MessageButton()
+  factory: () => new ButtonBuilder()
     .setLabel('Remove')
-    .setStyle('DANGER')
+    .setStyle(ButtonStyle.Danger)
     .setEmoji(EmojiCharacters.WASTEBASKET),
   async handle(interaction) {
     const originalMessage = interaction.message;

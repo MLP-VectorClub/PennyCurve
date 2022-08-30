@@ -1,15 +1,16 @@
 import {
+  ChannelType,
   Client,
   Guild,
   GuildMember,
   Interaction,
   Role,
-  TextBasedChannels,
+  TextBasedChannel,
   TextChannel,
 } from 'discord.js';
-import { env } from '../env.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
+import { env } from '../env.js';
 
 export const getServer = (client: Client, serverId = env.SERVER_ID): Guild => {
   const foundServer = client.guilds.cache.get(serverId);
@@ -25,7 +26,7 @@ export const findServerTextChannelByName = <Name extends ServerChannelName>(serv
 
   if (!foundChannel) throw new Error(`Could not find a channel named ${name}`);
   if (foundChannel.isThread()) throw new Error(`Found thread for name ${name}, expected GuildChannel`);
-  if (!foundChannel.isText() || foundChannel.type !== 'GUILD_TEXT') throw new Error(`Found non-text channel for name ${name} (type=${foundChannel.type})`);
+  if (foundChannel.type !== ChannelType.GuildText) throw new Error(`Found non-text channel for name ${name} (type=${foundChannel.type})`);
 
   return foundChannel as TextChannel & { name: Name };
 };
@@ -38,7 +39,7 @@ export const findServerRoleByName = <Name extends ServerRoleName>(server: Guild,
   return foundRole as Role & { name: Name };
 };
 
-export const isChannelName = (channel: TextBasedChannels | null | undefined, name: ServerChannelName): boolean => Boolean(channel && 'name' in channel && channel.name === name);
+export const isChannelName = (channel: TextBasedChannel | null | undefined, name: ServerChannelName): boolean => Boolean(channel && 'name' in channel && channel.name === name);
 
 export const findServerMember = (interaction: Interaction): GuildMember => {
   const serverMember = interaction.member;

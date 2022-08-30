@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from 'discord-api-types';
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import { GuildMember } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
@@ -77,7 +77,7 @@ export const roleCommand: BotCommand = {
     const serverMember = findServerMember(interaction);
 
     let targetMember = serverMember;
-    const memberOptionValue = options.getMember(OptionName.MEMBER, false);
+    const memberOptionValue = options.getMember(OptionName.MEMBER);
     if (memberOptionValue && memberOptionValue instanceof GuildMember) {
       const staffRole = findServerRoleByName(server, ServerRoleName.STAFF);
       const isStaff = serverMemberHasRole(serverMember, staffRole);

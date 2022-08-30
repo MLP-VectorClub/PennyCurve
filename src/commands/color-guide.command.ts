@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from 'discord-api-types';
+import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 

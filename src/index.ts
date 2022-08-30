@@ -6,7 +6,7 @@ import { validateStatus } from './utils/requests.js';
 
 // This file is the main entry point which starts the bot
 
-axios.defaults.headers['user-agent'] = env.UA_STRING;
+axios.defaults.headers.common['user-agent'] = env.UA_STRING;
 axios.defaults.validateStatus = validateStatus;
 
 (async () => {

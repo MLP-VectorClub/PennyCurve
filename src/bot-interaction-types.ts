@@ -1,8 +1,15 @@
-import type { CommandInteraction, MessageButton } from 'discord.js';
-import { ButtonInteraction, Interaction } from 'discord.js';
-import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/rest/v9/interactions.js';
-import { ServerRoleName } from './constants/server-role-name.js';
+import {
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
+} from 'discord-api-types/v10';
+import {
+  AutocompleteInteraction,
+  ButtonBuilder,
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  Interaction,
+} from 'discord.js';
 import { BotButtonId } from './constants/bot-button-id.js';
+import { ServerRoleName } from './constants/server-role-name.js';
 
 export enum BotCommandName {
   AGE = 'age',
@@ -37,11 +44,11 @@ export type InteractionHandler<T extends Interaction> = (interaction: T) => void
 
 export interface BotCommand {
   definition: BotCommandDefinition;
-  handle: InteractionHandler<CommandInteraction & { commandName: BotCommandName }>;
-  permissions?: BotCommandPermission[];
+  handle: InteractionHandler<ChatInputCommandInteraction & { commandName: BotCommandName }>;
+  autocomplete?: InteractionHandler<AutocompleteInteraction & { commandName: BotCommandName }>;
 }
 
 export interface BotButton {
-  factory: () => MessageButton;
+  factory: () => ButtonBuilder;
   handle: InteractionHandler<ButtonInteraction & { customId: BotButtonId }>;
 }

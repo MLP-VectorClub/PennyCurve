@@ -1,10 +1,16 @@
+import { Snowflake } from 'discord-api-types/v10';
 import {
-  BaseCommandInteraction,
-  BaseGuildTextChannel, Collection, CommandInteractionOption, Message, User,
+  ApplicationCommandOptionType,
+  BaseGuildTextChannel,
+  ChannelType,
+  Collection,
+  CommandInteraction,
+  CommandInteractionOption,
+  Message,
+  User,
 } from 'discord.js';
-import { Snowflake } from 'discord-api-types';
-import { condenseStringArray } from './strings.js';
 import { queueLazyPromises } from './promises.js';
+import { condenseStringArray } from './strings.js';
 
 export async function sendMessageSlices(channel: BaseGuildTextChannel, message: string): Promise<void> {
   const messageSlices = condenseStringArray(message.split(/\n\n/g), 2000, '\n\n');
@@ -38,13 +44,16 @@ export async function loadAllMessages(channel: BaseGuildTextChannel): Promise<Co
 
 export const getUserIdentifier = (user: User): `${string}#${string} (${string})` => `${user.username}#${user.discriminator} (${user.id})`;
 
-export const stringifyChannelName = (channel: BaseCommandInteraction['channel']): string => {
+export const stringifyChannelName = (channel: CommandInteraction['channel']): string => {
   if (channel) {
-    if (channel.isText() && 'name' in channel) {
-      return `#${channel.name}`;
+    let stringName: string;
+    if (channel.type === ChannelType.GuildText && 'name' in channel) {
+      stringName = `#${channel.name}`;
+    } else {
+      stringName = channel.toString();
     }
 
-    return channel.toString();
+    return `${stringName} (${channel.id})`;
   }
 
   return '(unknown channel)';
@@ -52,18 +61,22 @@ export const stringifyChannelName = (channel: BaseCommandInteraction['channel'])
 
 export const stringifyOptionsData = (data: readonly CommandInteractionOption[]): string => data.map((option): string => {
   const optionName = option.name;
-  let optionValue = option.value;
+  let optionValue: string | number | boolean | null | undefined = option.value;
   // eslint-disable-next-line default-case
   switch (option.type) {
-    case 'CHANNEL':
-      if (option.channel) optionValue = `${option.channel.type === 'GUILD_TEXT' ? '#' : ''}${option.channel.name}`;
+    case ApplicationCommandOptionType.Channel:
+      if (option.channel) optionValue = `${option.channel.type === ChannelType.GuildText ? '#' : ''}${option.channel.name}`;
       break;
-    case 'USER':
+    case ApplicationCommandOptionType.User:
       if (option.user) optionValue = getUserIdentifier(option.user);
       break;
-    case 'ROLE':
+    case ApplicationCommandOptionType.Role:
       if (option.role) optionValue = `@${option.role.name}`;
       break;
+    case ApplicationCommandOptionType.Subcommand:
+      optionValue = option.options ? stringifyOptionsData(option.options) : null;
+      break;
   }
-  return `(${optionName}:${optionValue})`;
-}).join(' ');
+  return `(${optionName}${optionValue !== null ? `:${optionValue}` : ''})`;
+})
+  .join(' ');
