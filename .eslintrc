@@ -52,7 +52,6 @@
       "ignorePackages"
     ],
     "no-console": "off",
-    "@typescript-eslint/no-duplicate-imports": "error",
     "quotes": [
       "error",
       "single",

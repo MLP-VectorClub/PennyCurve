@@ -1,3 +1,5 @@
+import { createDefaultPreset } from 'ts-jest';
+
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
   collectCoverageFrom: [
@@ -13,10 +15,8 @@ const config = {
   },
   resolver: 'jest-ts-webcompat-resolver',
   setupFilesAfterEnv: ['./tests/setup-tests.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.test.json',
-    },
+  transform: {
+    ...createDefaultPreset().transform,
   },
 };
 
