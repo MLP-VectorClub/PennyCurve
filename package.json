@@ -2,7 +2,7 @@
   "name": "pennycurve",
   "version": "2.0.0",
   "description": "Chat bot for the MLP Vector Club's Discord server",
-  "author": "SeinopSys <seinopsys@protonmail.com> (https://github.com/SeinopSys)",
+  "author": "WentTheFox <seinopsys@protonmail.com> (https://github.com/SeinopSys)",
   "private": true,
   "type": "module",
   "scripts": {
