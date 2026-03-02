@@ -53,5 +53,8 @@
   },
   "nodemonConfig": {
     "delay": 1000
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
