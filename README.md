@@ -6,9 +6,9 @@ Chat bot written in Node.js (using [discord.js](https://www.npmjs.com/package/di
 
 ```
 $ sudo npm install -g pm2
-$ npm install
+$ pnpm install
 $ cp .env.example .env
 $ nano .env # Fill in the neccessary environment variables
-$ npm build
+$ pnpm run build
 $ pm2 start pm2.json
 ```

@@ -1,0 +1,10 @@
+# 14 days, in minutes
+minimumReleaseAge: 20160
+
+allowBuilds:
+  # Native discord.js speedups
+  bufferutil: true
+  utf-8-validate: true
+  zlib-sync: true
+  # Only a fallback check for its platform binary, which pnpm installs anyway
+  unrs-resolver: false
