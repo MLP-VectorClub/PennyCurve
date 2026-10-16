@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { MessageTimestamp, MessageTimestampFormat } from './time.js';
 
 describe('time utils', () => {

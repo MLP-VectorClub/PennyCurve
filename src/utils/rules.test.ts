@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { ChannelMentionMap, ServerChannelName } from '../constants/server-channel-name.js';
 import { processRulesText } from './rules.js';
 import { env } from '../env.js';

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { LazyPromise, queueLazyPromises } from './promises';
 
 const lazyPromiseFactory = <T>(value: T, timeout: number): LazyPromise<T> => () => new Promise((res) => setTimeout(() => res(value), timeout));

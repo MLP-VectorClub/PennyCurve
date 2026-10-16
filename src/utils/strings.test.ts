@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { condenseStringArray } from './strings';
 
 describe('string utils', () => {

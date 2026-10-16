@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { getNicknameParts, NicknameParts } from './nicknames';
 
 describe('string utils', () => {
