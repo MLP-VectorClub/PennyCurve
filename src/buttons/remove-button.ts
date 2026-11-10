@@ -1,8 +1,10 @@
 import { ButtonBuilder, ButtonStyle } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
+import { BotButtonId } from '../constants/bot-button-id.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 
-export const removeButton: BotButton = {
+export const removeButton: BotButton<BotButtonId.DELETE> = {
+  id: BotButtonId.DELETE,
   factory: () => new ButtonBuilder()
     .setLabel('Remove')
     .setStyle(ButtonStyle.Danger)

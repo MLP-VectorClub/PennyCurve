@@ -2,10 +2,8 @@ import { BotCommand } from '../bot-interaction-types.js';
 import { findServerMember } from '../utils/client-utils.js';
 import { MessageTimestamp, MessageTimestampFormat } from '../utils/time.js';
 
-export const joinedCommand: BotCommand = {
-  definition: {
-    description: 'Tells you when you joined the server',
-  },
+export const joinedCommand: BotCommand<'joined'> = {
+  name: 'joined',
   async handle(interaction) {
     const member = findServerMember(interaction);
 

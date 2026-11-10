@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "entry": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "../node_modules/@went.tf/discord-bot-framework/build/commands/schema/chat-input-command.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "enum": [
+                    "age",
+                    "casual",
+                    "cg",
+                    "db",
+                    "fixnick",
+                    "joined",
+                    "nice",
+                    "ping",
+                    "rekt",
+                    "role",
+                    "say",
+                    "tut",
+                    "update-rules",
+                    "version",
+                    "welcome",
+                    "yes"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        }
+      },
+      "required": [
+        "commands"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

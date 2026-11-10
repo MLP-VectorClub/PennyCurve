@@ -1,42 +1,15 @@
-import { config } from 'dotenv';
+import { boolFromString, defineEnv } from '@went.tf/discord-bot-framework/env';
+import { z } from 'zod';
 
-config();
-
-const {
-  BACKEND_BASE_URL,
-  BOT_OWNER_ID,
-  DISCORD_BOT_TOKEN,
-  DISCORD_CLIENT_ID,
-  FRONTEND_BASE_URL,
-  INVITE_LINK,
-  LOCAL,
-  SERVER_ID,
-  UA_STRING,
-  WS_SERVER_KEY,
-} = process.env;
-
-export const env = (() => {
-  const values = {
-    BACKEND_BASE_URL,
-    BOT_OWNER_ID,
-    DISCORD_BOT_TOKEN,
-    DISCORD_CLIENT_ID,
-    FRONTEND_BASE_URL,
-    INVITE_LINK,
-    LOCAL: typeof LOCAL !== 'undefined' && LOCAL === 'true',
-    SERVER_ID,
-    UA_STRING,
-    WS_SERVER_KEY,
-  };
-
-  type Values = typeof values;
-
-  Object.keys(values)
-    .forEach((key) => {
-      if (typeof values[key as keyof Values] !== 'undefined') return;
-
-      throw new Error(`${key} environment variable not set`);
-    });
-
-  return values as { [Key in keyof Values]: Exclude<Values[Key], undefined> };
-})();
+export const env = defineEnv({
+  BACKEND_BASE_URL: z.string(),
+  BOT_OWNER_ID: z.string(),
+  DISCORD_BOT_TOKEN: z.string(),
+  DISCORD_CLIENT_ID: z.string(),
+  FRONTEND_BASE_URL: z.string(),
+  INVITE_LINK: z.string(),
+  LOCAL: boolFromString().default(false),
+  SERVER_ID: z.string(),
+  UA_STRING: z.string(),
+  WS_SERVER_KEY: z.string(),
+});

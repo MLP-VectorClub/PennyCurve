@@ -6,6 +6,7 @@ import {
   EmbedAuthorOptions,
   EmbedBuilder,
 } from 'discord.js';
+import { NestableLogger } from '@went.tf/discord-bot-framework/logger';
 import { makeButton } from '../buttons.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
 import { PhilomenaImageResponse } from '../types/philomena-api.js';
@@ -14,7 +15,7 @@ const usNumberFormatter = new Intl.NumberFormat('en-US');
 
 const derpibooruStatValue = (n: number): string => (n === 0 ? 'None' : usNumberFormatter.format(n));
 
-export const respondWithDerpibooruImage = async (interaction: CommandInteraction, image: PhilomenaImageResponse, brief = false): Promise<void> => {
+export const respondWithDerpibooruImage = async (interaction: CommandInteraction, logger: NestableLogger, image: PhilomenaImageResponse, brief = false): Promise<void> => {
   const { processed } = image;
   if (!processed) {
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -99,7 +100,7 @@ export const respondWithDerpibooruImage = async (interaction: CommandInteraction
       { name: 'Comments', value: derpibooruStatValue(image.comment_count), inline:  true },
     ]);
   }
-  console.info(`Sending Derpi embed for image #${imageId}`);
+  logger.log(`Sending Derpi embed for image #${imageId}`);
 
   const derpiButton = new ButtonBuilder().setLabel('View on Derpibooru')
     .setStyle(ButtonStyle.Link)

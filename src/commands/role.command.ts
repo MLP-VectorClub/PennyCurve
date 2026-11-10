@@ -1,4 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import { GuildMember } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
@@ -23,54 +22,8 @@ enum ActionOptions {
   TOGGLE = 'toggle',
 }
 
-export const roleCommand: BotCommand = {
-  definition: {
-    description: 'Add or remove self-assignable roles',
-    options: [
-      {
-        name: OptionName.ROLE,
-        type: ApplicationCommandOptionType.String,
-        description: 'The role you would like to assign or remove',
-        choices: [
-          {
-            name: ServerRoleName.INKSCAPE,
-            value: ServerRoleName.INKSCAPE,
-          },
-          {
-            name: ServerRoleName.ILLUSTRATOR,
-            value: ServerRoleName.ILLUSTRATOR,
-          },
-        ],
-        required: true,
-      },
-      {
-        name: OptionName.MEMBER,
-        type: ApplicationCommandOptionType.User,
-        description: '**Staff only!** The user whose roles you want to change',
-        required: false,
-      },
-      {
-        name: OptionName.ACTION,
-        type: ApplicationCommandOptionType.String,
-        description: `What to do with the provided role (default: \`${ActionOptions.TOGGLE}\`)`,
-        choices: [
-          {
-            name: ActionOptions.TOGGLE,
-            value: ActionOptions.TOGGLE,
-          },
-          {
-            value: ActionOptions.ADD,
-            name: ActionOptions.ADD,
-          },
-          {
-            value: ActionOptions.REMOVE,
-            name: ActionOptions.REMOVE,
-          },
-        ],
-        required: false,
-      },
-    ],
-  },
+export const roleCommand: BotCommand<'role'> = {
+  name: 'role',
   async handle(interaction) {
     const { client, commandName, options } = interaction;
     const server = getServer(client);

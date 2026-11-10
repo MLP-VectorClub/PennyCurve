@@ -1,0 +1,323 @@
+{
+  "$schema": "./commands.schema.json",
+  "commands": [
+    {
+      "type": "CHAT_INPUT",
+      "name": "age",
+      "description": "Tells you the age of the server"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "casual",
+      "description": "Politely asks everyone in the room to move to the #casual channel (does nothing in said channel)"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "cg",
+      "description": "This command can be used to quickly find a color guide page using our website's search.",
+      "options": [
+        {
+          "name": "name",
+          "description": "Enter the character or object's name. Does not need to be the full name.",
+          "type": "STRING",
+          "required": true
+        },
+        {
+          "name": "guide",
+          "description": "name of the guide to search in, defaults to the Friendship is Magic guide",
+          "type": "STRING",
+          "required": false,
+          "choices": [
+            {
+              "name": "Friendship is Magic",
+              "value": "pony"
+            },
+            {
+              "name": "Equestria Girls",
+              "value": "eqg"
+            },
+            {
+              "name": "Pony Life",
+              "value": "pl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "db",
+      "description": "Searches Derpibooru and returns the first result. Default filter is applied outside #nsfw",
+      "options": [
+        {
+          "name": "query",
+          "description": "Search query (same syntax is used for searching as on the site itself)",
+          "type": "STRING",
+          "required": true
+        },
+        {
+          "name": "order",
+          "description": "Ordering of the search results (default: `desc`)",
+          "type": "STRING",
+          "required": false,
+          "choices": [
+            {
+              "name": "Descending",
+              "value": "desc"
+            },
+            {
+              "name": "Ascending",
+              "value": "asc"
+            }
+          ]
+        },
+        {
+          "name": "sort",
+          "description": "Same as \"Sort by\" on the actual site (default: `id`)",
+          "type": "STRING",
+          "required": false,
+          "choices": [
+            {
+              "name": "image ID",
+              "value": "id"
+            },
+            {
+              "name": "last modification date",
+              "value": "updated_at"
+            },
+            {
+              "name": "initial post date",
+              "value": "first_seen_at"
+            },
+            {
+              "name": "aspect ratio",
+              "value": "aspect_ratio"
+            },
+            {
+              "name": "fave count",
+              "value": "faves"
+            },
+            {
+              "name": "upvotes",
+              "value": "upvotes"
+            },
+            {
+              "name": "downvotes",
+              "value": "downvotes"
+            },
+            {
+              "name": "score",
+              "value": "score"
+            },
+            {
+              "name": "Wilson score",
+              "value": "wilson_score"
+            },
+            {
+              "name": "relevance",
+              "value": "_score"
+            },
+            {
+              "name": "width",
+              "value": "width"
+            },
+            {
+              "name": "height",
+              "value": "height"
+            },
+            {
+              "name": "comments",
+              "value": "comment_count"
+            },
+            {
+              "name": "tag count",
+              "value": "tag_count"
+            },
+            {
+              "name": "pixels",
+              "value": "pixels"
+            },
+            {
+              "name": "file size",
+              "value": "size"
+            },
+            {
+              "name": "duration",
+              "value": "duration"
+            },
+            {
+              "name": "Random!",
+              "value": "random"
+            }
+          ]
+        },
+        {
+          "name": "as-link",
+          "description": "When true, simply returns the link to the search page instead of embedding the first result",
+          "type": "BOOLEAN",
+          "required": false
+        },
+        {
+          "name": "brief",
+          "description": "When specified, details like the description, uploader and counters will not be shown in the embed",
+          "type": "BOOLEAN",
+          "required": false
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "fixnick",
+      "description": "Change how your DeviantArt username is displayed alongside your Discord name",
+      "default_member_permissions": "0"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "joined",
+      "description": "Tells you when you joined the server"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "nice",
+      "description": "Replies with a YouTube link to JoJo saying \"Nice!\""
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "ping",
+      "description": "Replies with Pong!"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "rekt",
+      "description": "Replies with a YouTube link to the MLG Air Horn sound effect"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "role",
+      "description": "Add or remove self-assignable roles",
+      "options": [
+        {
+          "name": "role",
+          "type": "STRING",
+          "description": "The role you would like to assign or remove",
+          "choices": [
+            {
+              "name": "Inkscape",
+              "value": "Inkscape"
+            },
+            {
+              "name": "Illustrator",
+              "value": "Illustrator"
+            }
+          ],
+          "required": true
+        },
+        {
+          "name": "member",
+          "type": "USER",
+          "description": "**Staff only!** The user whose roles you want to change",
+          "required": false
+        },
+        {
+          "name": "action",
+          "type": "STRING",
+          "description": "What to do with the provided role (default: `toggle`)",
+          "choices": [
+            {
+              "name": "toggle",
+              "value": "toggle"
+            },
+            {
+              "value": "add",
+              "name": "add"
+            },
+            {
+              "value": "remove",
+              "name": "remove"
+            }
+          ],
+          "required": false
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "say",
+      "description": "Send a message to the specified channel as the bot.",
+      "default_member_permissions": "0",
+      "options": [
+        {
+          "name": "channel",
+          "description": "The channel in which to send the message",
+          "type": "CHANNEL",
+          "required": true
+        },
+        {
+          "name": "message",
+          "description": "The message to send",
+          "type": "STRING",
+          "required": true
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "tut",
+      "description": "Sends a link to the club's Tutorials folder to the channel.",
+      "options": [
+        {
+          "name": "sub-folder",
+          "description": "Allows linking to an application-specific subfolder",
+          "type": "STRING",
+          "required": false,
+          "choices": [
+            {
+              "name": "Animation",
+              "value": "anim"
+            },
+            {
+              "name": "Illustrator",
+              "value": "ai"
+            },
+            {
+              "name": "Inkscape",
+              "value": "is"
+            },
+            {
+              "name": "Photoshop",
+              "value": "ps"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "update-rules",
+      "description": "Updates the rules in the #welcome channel"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "version",
+      "description": "Returns the currently running bot version with a link to the code changes"
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "welcome",
+      "description": "Welcomes the specified user as the bot",
+      "options": [
+        {
+          "name": "member",
+          "description": "The name of the user to welcome",
+          "type": "USER",
+          "required": true
+        }
+      ]
+    },
+    {
+      "type": "CHAT_INPUT",
+      "name": "yes",
+      "description": "Replies with a YouTube link to Mr. Bison saying \"Yes\" repeatedly"
+    }
+  ]
+}

@@ -2,10 +2,8 @@ import { BotCommand } from '../bot-interaction-types.js';
 import { getServer } from '../utils/client-utils.js';
 import { MessageTimestamp, MessageTimestampFormat } from '../utils/time.js';
 
-export const ageCommand: BotCommand = {
-  definition: {
-    description: 'Tells you the age of the server',
-  },
+export const ageCommand: BotCommand<'age'> = {
+  name: 'age',
   async handle(interaction) {
     const server = getServer(interaction.client);
     const ts = new MessageTimestamp(server.createdAt);

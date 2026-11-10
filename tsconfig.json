@@ -2,18 +2,20 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": false,
+    "esModuleInterop": true,
     "lib": [
-      "ES2018",
-      "ES2020",
+      "ES2023",
       "DOM"
     ],
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "build",
+    "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2020"
+    "target": "ES2022"
   },
   "exclude": [
     "tests",

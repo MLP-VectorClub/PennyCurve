@@ -5,11 +5,8 @@ import { BotButtonId } from '../constants/bot-button-id.js';
 import { findServerMember } from '../utils/client-utils.js';
 import { getNicknameInFormat, getNicknameParts, NicknameFormat } from '../utils/nicknames.js';
 
-export const fixNickCommand: BotCommand = {
-  definition: {
-    description: 'Change how your DeviantArt username is displayed alongside your Discord name',
-    default_permission: false,
-  },
+export const fixNickCommand: BotCommand<'fixnick'> = {
+  name: 'fixnick',
   async handle(interaction) {
     const serverMember = findServerMember(interaction);
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getNicknameParts, NicknameParts } from './nicknames';
+import { getNicknameParts, NicknameParts } from './nicknames.js';
 
 describe('string utils', () => {
   describe('getDeviantArtName', () => {

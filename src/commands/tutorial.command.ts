@@ -1,4 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import { BotCommand } from '../bot-interaction-types.js';
 
 enum OptionName {
@@ -12,36 +11,8 @@ enum AppNames {
   PHOTOSHOP = 'ps',
 }
 
-export const tutorialCommand: BotCommand = {
-  definition: {
-    description: 'Sends a link to the club\'s Tutorials folder to the channel.',
-    options: [
-      {
-        name: OptionName.SUB_FOLDER,
-        description: 'Allows linking to an application-specific subfolder',
-        type: ApplicationCommandOptionType.String,
-        required: false,
-        choices: [
-          {
-            name: 'Animation',
-            value: AppNames.ANIMATION,
-          },
-          {
-            name: 'Illustrator',
-            value: AppNames.ILLUSTRATOR,
-          },
-          {
-            name: 'Inkscape',
-            value: AppNames.INKSCAPE,
-          },
-          {
-            name: 'Photoshop',
-            value: AppNames.PHOTOSHOP,
-          },
-        ],
-      },
-    ],
-  },
+export const tutorialCommand: BotCommand<'tut'> = {
+  name: 'tut',
   async handle(interaction) {
     const subFolder = interaction.options.getString(OptionName.SUB_FOLDER);
 

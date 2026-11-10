@@ -5,13 +5,11 @@ import { BotButtonId } from '../constants/bot-button-id.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
 import { findServerTextChannelByName, getServer } from '../utils/client-utils.js';
-import { loadAllMessages, sendMessageSlices } from '../utils/messaging.js';
+import { loadAllMessages, sendMessageSlices } from '@went.tf/discord-bot-framework/utils';
 import { compileRulesText } from '../utils/rules.js';
 
-export const updateRulesCommand: BotCommand = {
-  definition: {
-    description: `Updates the rules in the #${ServerChannelName.WELCOME} channel`,
-  },
+export const updateRulesCommand: BotCommand<'update-rules'> = {
+  name: 'update-rules',
   async handle(interaction) {
     const actionPrefix = 'Updating rules: ';
     await interaction.reply(`${actionPrefix} Fetching #${ServerChannelName.WELCOME} channel`);

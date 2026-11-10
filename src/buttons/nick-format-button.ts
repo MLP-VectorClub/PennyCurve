@@ -4,7 +4,10 @@ import { BotButtonId } from '../constants/bot-button-id.js';
 import { findServerMember } from '../utils/client-utils.js';
 import { getNicknameInFormat, getNicknameParts, NicknameFormat } from '../utils/nicknames.js';
 
-export const nickFormatButton: BotButton = {
+type NickFormatButtonId = BotButtonId.NICK_FORMAT_BRACKETS | BotButtonId.NICK_FORMAT_PIPE | BotButtonId.NICK_FORMAT_RESET;
+
+export const createNickFormatButton = <Id extends NickFormatButtonId>(id: Id): BotButton<Id> => ({
+  id,
   factory: () => new ButtonBuilder().setStyle(ButtonStyle.Secondary),
   async handle(interaction) {
     const serverMember = findServerMember(interaction);
@@ -49,4 +52,4 @@ export const nickFormatButton: BotButton = {
       content: 'Your nickname has been updated successfully',
     });
   },
-};
+});

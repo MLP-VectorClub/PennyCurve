@@ -1,5 +1,6 @@
 import { ButtonBuilder, ButtonStyle, Guild, GuildChannel, User } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
+import { BotButtonId } from '../constants/bot-button-id.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
@@ -16,7 +17,8 @@ export const welcomeUser = async (user: User, server: Guild): Promise<GuildChann
   return casualChannel;
 };
 
-export const agreeToRulesButton: BotButton = {
+export const agreeToRulesButton: BotButton<BotButtonId.AGREE_TO_RULES> = {
+  id: BotButtonId.AGREE_TO_RULES,
   factory: () => new ButtonBuilder()
     .setLabel('I have read and agree to the rules')
     .setStyle(ButtonStyle.Secondary)

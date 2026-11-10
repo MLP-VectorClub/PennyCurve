@@ -1,4 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import { ChannelType, GuildChannel } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
@@ -8,25 +7,8 @@ enum OptionName {
   MESSAGE = 'message',
 }
 
-export const sayCommand: BotCommand = {
-  definition: {
-    description: 'Send a message to the specified channel as the bot.',
-    default_permission: false,
-    options: [
-      {
-        name: OptionName.CHANNEL,
-        description: 'The channel in which to send the message',
-        type: ApplicationCommandOptionType.Channel,
-        required: true,
-      },
-      {
-        name: OptionName.MESSAGE,
-        description: 'The message to send',
-        type: ApplicationCommandOptionType.String,
-        required: true,
-      },
-    ],
-  },
+export const sayCommand: BotCommand<'say'> = {
+  name: 'say',
   async handle(interaction) {
     const channel = interaction.options.getChannel(OptionName.CHANNEL, true);
     const rawMessage = interaction.options.getString(OptionName.MESSAGE, true);

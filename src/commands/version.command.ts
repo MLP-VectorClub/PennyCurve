@@ -1,14 +1,12 @@
 import { BotCommand } from '../bot-interaction-types.js';
-import { getGitData } from '../utils/get-git-data.js';
+import { getGitData } from '@went.tf/discord-bot-framework/utils';
 import { MessageTimestamp, MessageTimestampFormat } from '../utils/time.js';
 
-export const versionCommand: BotCommand = {
-  definition: {
-    description: 'Returns the currently running bot version with a link to the code changes',
-  },
-  async handle(interaction) {
-    const data = await getGitData().catch((e) => {
-      console.error('Could not determine bot version', e);
+export const versionCommand: BotCommand<'version'> = {
+  name: 'version',
+  async handle(interaction, context) {
+    const data = await getGitData(context).catch((e) => {
+      context.logger.error('Could not determine bot version', e);
       return null;
     });
     if (!data) {

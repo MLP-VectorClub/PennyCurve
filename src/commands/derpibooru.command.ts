@@ -1,4 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerChannelName } from '../constants/server-channel-name.js';
@@ -14,101 +13,11 @@ enum OptionName {
   BRIEF = 'brief',
 }
 
-enum OrderOptions {
-  DESCENDING = 'desc',
-  ASCENDING = 'asc',
-}
-
-enum SortOptions {
-  ID = 'id',
-  UPDATED_AT = 'updated_at',
-  FIRST_SEEN_AT = 'first_seen_at',
-  ASPECT_RATIO = 'aspect_ratio',
-  FAVORITES = 'faves',
-  UPVOTES = 'upvotes',
-  DOWNVOTES = 'downvotes',
-  SCORE = 'score',
-  WILSON_SCORE = 'wilson_score',
-  RELEVANCE = '_score',
-  WIDTH = 'width',
-  HEIGHT = 'height',
-  COMMENTS = 'comment_count',
-  TAG_COUNT = 'tag_count',
-  PIXELS = 'pixels',
-  SIZE = 'size',
-  DURATION = 'duration',
-  RANDOM = 'random',
-}
-
 const responseTypeGuard = (resp: unknown): resp is { images: PhilomenaImageResponse[] } => typeof resp === 'object' && resp !== null && 'images' in resp && Array.isArray((resp as { images?: [] }).images);
 
-export const derpibooruCommand: BotCommand = {
-  definition: {
-    description: `Searches Derpibooru and returns the first result. Default filter is applied outside #${ServerChannelName.NSFW}`,
-    options: [
-      {
-        name: OptionName.QUERY,
-        description: 'Search query (same syntax is used for searching as on the site itself)',
-        type: ApplicationCommandOptionType.String,
-        required: true,
-      },
-      {
-        name: OptionName.ORDER,
-        description: `Ordering of the search results (default: \`${OrderOptions.DESCENDING}\`)`,
-        type: ApplicationCommandOptionType.String,
-        required: false,
-        choices: [
-          {
-            name: 'Descending',
-            value: OrderOptions.DESCENDING,
-          },
-          {
-            name: 'Ascending',
-            value: OrderOptions.ASCENDING,
-          },
-        ],
-      },
-      {
-        name: OptionName.SORT,
-        description: `Same as "Sort by" on the actual site (default: \`${SortOptions.ID}\`)`,
-        type: ApplicationCommandOptionType.String,
-        required: false,
-        choices: [
-          { name: 'image ID', value: SortOptions.ID },
-          { name: 'last modification date', value: SortOptions.UPDATED_AT },
-          { name: 'initial post date', value: SortOptions.FIRST_SEEN_AT },
-          { name: 'aspect ratio', value: SortOptions.ASPECT_RATIO },
-          { name: 'fave count', value: SortOptions.FAVORITES },
-          { name: 'upvotes', value: SortOptions.UPVOTES },
-          { name: 'downvotes', value: SortOptions.DOWNVOTES },
-          { name: 'score', value: SortOptions.SCORE },
-          { name: 'Wilson score', value: SortOptions.WILSON_SCORE },
-          { name: 'relevance', value: SortOptions.RELEVANCE },
-          { name: 'width', value: SortOptions.WIDTH },
-          { name: 'height', value: SortOptions.HEIGHT },
-          { name: 'comments', value: SortOptions.COMMENTS },
-          { name: 'tag count', value: SortOptions.TAG_COUNT },
-          { name: 'pixels', value: SortOptions.PIXELS },
-          { name: 'file size', value: SortOptions.SIZE },
-          { name: 'duration', value: SortOptions.DURATION },
-          { name: 'Random!', value: SortOptions.RANDOM },
-        ],
-      },
-      {
-        name: OptionName.AS_LINK,
-        description: 'When true, simply returns the link to the search page instead of embedding the first result',
-        type: ApplicationCommandOptionType.Boolean,
-        required: false,
-      },
-      {
-        name: OptionName.BRIEF,
-        description: 'When specified, details like the description, uploader and counters will not be shown in the embed',
-        type: ApplicationCommandOptionType.Boolean,
-        required: false,
-      },
-    ],
-  },
-  async handle(interaction) {
+export const derpibooruCommand: BotCommand<'db'> = {
+  name: 'db',
+  async handle(interaction, { logger }) {
     const { channel, options } = interaction;
     const query = options.getString(OptionName.QUERY, true);
     const inNSFW = isChannelName(channel, ServerChannelName.NSFW);
@@ -132,7 +41,7 @@ export const derpibooruCommand: BotCommand = {
       return;
     }
 
-    console.info(`Derpi search: ${url}`);
+    logger.log(`Derpi search: ${url}`);
     const { data } = await axios.get(url, { responseType: 'json' });
 
     if (!responseTypeGuard(data)) throw new Error(`Malformed data received from Derpibooru: ${JSON.stringify(data)}`);
@@ -151,6 +60,6 @@ export const derpibooruCommand: BotCommand = {
       return;
     }
 
-    await respondWithDerpibooruImage(interaction, data.images[0], briefEmbed);
+    await respondWithDerpibooruImage(interaction, logger, data.images[0], briefEmbed);
   },
 };

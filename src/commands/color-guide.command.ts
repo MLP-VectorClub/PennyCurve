@@ -1,4 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 
@@ -26,38 +25,8 @@ const responseTypeGuard = (data: AppGotoResponse | unknown): data is AppGotoResp
   return !localData.status || typeof localData.goto === 'string';
 };
 
-export const colorGuideCommand: BotCommand = {
-  definition: {
-    description: 'This command can be used to quickly find a color guide page using our website\'s search.',
-    options: [
-      {
-        name: OptionName.QUERY,
-        description: 'Enter the character or object\'s name. Does not need to be the full name.',
-        type: ApplicationCommandOptionType.String,
-        required: true,
-      },
-      {
-        name: OptionName.GUIDE,
-        description: 'name of the guide to search in, defaults to the Friendship is Magic guide',
-        type: ApplicationCommandOptionType.String,
-        required: false,
-        choices: [
-          {
-            name: 'Friendship is Magic',
-            value: GuideNames.FRIENDSHIP_IS_MAGIC,
-          },
-          {
-            name: 'Equestria Girls',
-            value: GuideNames.EQUESTRIA_GIRLS,
-          },
-          {
-            name: 'Pony Life',
-            value: GuideNames.PONY_LIFE,
-          },
-        ],
-      },
-    ],
-  },
+export const colorGuideCommand: BotCommand<'cg'> = {
+  name: 'cg',
   async handle(interaction) {
     const query = interaction.options.getString(OptionName.QUERY, true);
     const guideName = interaction.options.getString(OptionName.GUIDE) || GuideNames.FRIENDSHIP_IS_MAGIC;

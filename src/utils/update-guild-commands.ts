@@ -1,28 +1,29 @@
+import { buildApplicationCommandsBody, createCommandRegistrar } from '@went.tf/discord-bot-framework/commands';
+import { CommandsFile, parseCommandsFile, registerFrameworkSchemas, resolveCommandsSchemaRefs } from '@went.tf/discord-bot-framework/commands/schema';
+import { NestableLogger } from '@went.tf/discord-bot-framework/logger';
 import { REST } from '@discordjs/rest';
-import { RESTPutAPIApplicationGuildCommandsResult, Routes } from 'discord-api-types/v10';
-import { commands } from '../commands.js';
+import { Ajv } from 'ajv';
+import commandsData from '../commands.json' with { type: 'json' };
+import commandsSchemaRaw from '../commands.schema.json' with { type: 'json' };
+import { chatInputCommandRegistry } from '../commands.js';
 import { env } from '../env.js';
 
 const rest = new REST({
-  version: '9',
   userAgentAppendix: env.UA_STRING,
 }).setToken(env.DISCORD_BOT_TOKEN);
 
-export const updateGuildCommands = async (clientId = env.DISCORD_CLIENT_ID, serverId = env.SERVER_ID): Promise<void> => {
-  try {
-    console.log(`Started refreshing application (/) commands (SERVER_ID=${serverId})`);
+// Rewrites the relative-path $refs in commands.schema.json (which point into node_modules so editors can
+// resolve them) to each fragment's real ajv-resolvable identity
+const ajv = new Ajv({ allErrors: true, allowUnionTypes: true });
+registerFrameworkSchemas(ajv);
+const validateCommandsFile = ajv.compile(resolveCommandsSchemaRefs(commandsSchemaRaw));
 
-    const putCommands = await rest.put(
-      Routes.applicationGuildCommands(clientId, serverId),
-      { body: commands },
-    ) as RESTPutAPIApplicationGuildCommandsResult;
+export const updateGuildCommands = async (logger: NestableLogger, serverId = env.SERVER_ID): Promise<void> => {
+  const registrar = createCommandRegistrar({ rest, applicationId: env.DISCORD_CLIENT_ID, logger });
+  const commandsFile = parseCommandsFile<CommandsFile>(commandsData, { validate: validateCommandsFile });
+  const body = buildApplicationCommandsBody(commandsFile, { chatInput: chatInputCommandRegistry });
 
-    await Promise.all(putCommands);
-
-    console.log(`Successfully reloaded application (/) commands (SERVER_ID=${serverId})`);
-  } catch (error) {
-    console.log(`Failed to reloaded application (/) commands (SERVER_ID=${serverId})`);
-    console.error(error);
-    process.exit(1);
-  }
+  logger.log(`Refreshing application (/) commands (SERVER_ID=${serverId})`);
+  await registrar.updateGuildCommands(serverId, body);
+  logger.log(`Successfully reloaded application (/) commands (SERVER_ID=${serverId})`);
 };

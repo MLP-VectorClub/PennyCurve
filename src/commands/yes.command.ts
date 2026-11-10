@@ -1,7 +1,8 @@
+import { fixedReplyCommandFactory } from '@went.tf/discord-bot-framework/commands';
 import { BotCommand } from '../bot-interaction-types.js';
-import { fixedReplyCommandFactory } from '../utils/fixed-reply-command-factory.js';
+import { InteractionHandlerContext } from '../types/interaction-handler.context.js';
 
-export const yesCommand: BotCommand = fixedReplyCommandFactory(
-  'Replies with a YouTube link to Mr. Bison saying "Yes" repeatedly',
-  'https://www.youtube.com/watch?v=P3ALwKeSEYs',
-);
+export const yesCommand: BotCommand<'yes'> = {
+  name: 'yes',
+  ...fixedReplyCommandFactory<InteractionHandlerContext>('https://www.youtube.com/watch?v=P3ALwKeSEYs'),
+};

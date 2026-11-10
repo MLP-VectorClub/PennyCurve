@@ -22,10 +22,8 @@ const imageSizes: Record<typeof possibleImages[number], [number, number]> = {
   mountain: [1920, 1080],
 };
 
-export const casualCommand: BotCommand = {
-  definition: {
-    description: `Politely asks everyone in the room to move to the #${ServerChannelName.CASUAL} channel (does nothing in said channel)`,
-  },
+export const casualCommand: BotCommand<'casual'> = {
+  name: 'casual',
   async handle(interaction) {
     const { channel } = interaction;
     if (!channel || channel.type !== ChannelType.GuildText || !('name' in channel) || channel.name === ServerChannelName.CASUAL) {

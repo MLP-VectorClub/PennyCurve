@@ -1,4 +1,8 @@
+import { fixedReplyCommandFactory } from '@went.tf/discord-bot-framework/commands';
 import { BotCommand } from '../bot-interaction-types.js';
-import { fixedReplyCommandFactory } from '../utils/fixed-reply-command-factory.js';
+import { InteractionHandlerContext } from '../types/interaction-handler.context.js';
 
-export const pingCommand: BotCommand = fixedReplyCommandFactory('Replies with Pong!', 'Pong!', true);
+export const pingCommand: BotCommand<'ping'> = {
+  name: 'ping',
+  ...fixedReplyCommandFactory<InteractionHandlerContext>('Pong!', true),
+};
