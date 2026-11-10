@@ -1,5 +1,5 @@
 export enum ServerRoleName {
-  AFFINITY_DESIGNER = 'Affinity Designer',
+  AFFINITY = 'Affinity',
   BOT = 'Bot',
   CLUB_MEMBERS = 'Club Members',
   ILLUSTRATOR = 'Illustrator',

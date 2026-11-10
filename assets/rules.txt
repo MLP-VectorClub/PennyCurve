@@ -10,7 +10,7 @@ We have a few rules that you should keep in mind:
 **3.** Kindly try to keep topics in their respective channels. Use your notification settings (Screenshot: <https://bit.ly/2VKoQdZ>) to mute any channels from which you don't want to receive new notifications.
     #CASUAL: The place for general discussion. You can share art, music, or funny pictures with the rest of the members.
     #GAMES: For all things gaming. If you want to notify others about game deals and discounts this is the place to do so.
-    #VECTORS: Vector artwork helpline - you can ask for critique on or help with your vectors here. You can use the `/vectorapp` command to give yourself roles that let others know what application you make vectors with.
+    #VECTORS: Vector artwork helpline - you can ask for critique on or help with your vectors here. You can use the `/role` command to give yourself roles that let others know what application you make vectors with.
     #SUPPORT: Questions about the color guide website, the DeviantArt group and the Discord server should go here.
     #SPOILERS: Talk about upcoming or recently aired episodes and movies, as well as the comics.
     #SUPER_SPOILERS: This channel is only open when major leaks happen to avoid posting such content in #SPOILERS
