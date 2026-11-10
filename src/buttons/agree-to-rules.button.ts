@@ -1,4 +1,4 @@
-import { ButtonBuilder, ButtonStyle, Guild, GuildChannel, User } from 'discord.js';
+import { ButtonBuilder, ButtonStyle, Guild, GuildChannel, MessageFlags, User } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
@@ -32,7 +32,7 @@ export const agreeToRulesButton: BotButton<BotButtonId.AGREE_TO_RULES> = {
     if (serverMemberHasRole) {
       await interaction.reply({
         content: `You already have the ${informedRole} role`,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -45,7 +45,7 @@ export const agreeToRulesButton: BotButton<BotButtonId.AGREE_TO_RULES> = {
 
     await interaction.reply({
       content: `Welcome to the server! I let the others know that you've joined in the ${casualChannel} channel.`,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };

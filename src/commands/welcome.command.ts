@@ -1,4 +1,4 @@
-import { GuildMember } from 'discord.js';
+import { GuildMember, MessageFlags } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { welcomeUser } from '../buttons/agree-to-rules.button.js';
 import { getServer } from '../utils/client-utils.js';
@@ -20,7 +20,7 @@ export const welcomeCommand: BotCommand<'welcome'> = {
 
     await interaction.reply({
       content: `Welcome message for ${userToWelcome} has been re-sent to ${casualChannel}`,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };

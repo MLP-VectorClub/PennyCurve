@@ -1,4 +1,4 @@
-import { GuildMember } from 'discord.js';
+import { GuildMember, MessageFlags } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { ServerRoleName } from '../constants/server-role-name.js';
 import {
@@ -37,7 +37,7 @@ export const roleCommand: BotCommand<'role'> = {
       if (!isStaff) {
         await interaction.reply({
           content: `Only ${staffRole} members are allowed to use the ${OptionName.MEMBER} option`,
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
         return;
       }
@@ -68,6 +68,6 @@ export const roleCommand: BotCommand<'role'> = {
       sameUser ? 'have' : 'has',
       `the ${targetRole} role`,
     ];
-    await interaction.reply({ content: responseParts.join(' '), ephemeral: true });
+    await interaction.reply({ content: responseParts.join(' '), flags: MessageFlags.Ephemeral });
   },
 };

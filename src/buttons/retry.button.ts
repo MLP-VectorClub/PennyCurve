@@ -1,4 +1,4 @@
-import { ButtonBuilder, ButtonStyle } from 'discord.js';
+import { ButtonBuilder, ButtonStyle, MessageFlags } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
@@ -15,7 +15,7 @@ export const retryButton: BotButton<BotButtonId.RETRY> = {
     if (!originalMessage) {
       await interaction.reply({
         content: 'Original message could not be found',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }

@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, MessageFlags } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { makeButton } from '../buttons.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
@@ -12,7 +12,7 @@ export const fixNickCommand: BotCommand<'fixnick'> = {
 
     if (!serverMember.nickname) {
       await interaction.reply({
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
         content: 'You do not have a nickname on our server.',
       });
       return;
@@ -23,7 +23,7 @@ export const fixNickCommand: BotCommand<'fixnick'> = {
 
     if (parts.daName === null) {
       await interaction.reply({
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
         content: 'Your nickname does not match a recognized format, so this command cannot change it',
       });
       return;
@@ -39,7 +39,7 @@ export const fixNickCommand: BotCommand<'fixnick'> = {
     );
 
     await interaction.reply({
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       content: 'Please choose your desired nickname format using the buttons below.',
       components: [row],
     });

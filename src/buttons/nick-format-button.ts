@@ -1,4 +1,4 @@
-import { ButtonBuilder, ButtonStyle } from 'discord.js';
+import { ButtonBuilder, ButtonStyle, MessageFlags } from 'discord.js';
 import { BotButton } from '../bot-interaction-types.js';
 import { BotButtonId } from '../constants/bot-button-id.js';
 import { findServerMember } from '../utils/client-utils.js';
@@ -14,7 +14,7 @@ export const createNickFormatButton = <Id extends NickFormatButtonId>(id: Id): B
 
     if (!serverMember.nickname) {
       await interaction.reply({
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
         content: 'You do not have a nickname on our server.',
       });
       return;
@@ -39,7 +39,7 @@ export const createNickFormatButton = <Id extends NickFormatButtonId>(id: Id): B
 
     if (newNick === oldNick) {
       await interaction.reply({
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
         content: 'Your nick is already in the requested format',
       });
       return;
@@ -48,7 +48,7 @@ export const createNickFormatButton = <Id extends NickFormatButtonId>(id: Id): B
     await serverMember.setNickname(newNick);
 
     await interaction.reply({
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
       content: 'Your nickname has been updated successfully',
     });
   },

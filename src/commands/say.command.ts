@@ -1,4 +1,4 @@
-import { ChannelType, GuildChannel } from 'discord.js';
+import { ChannelType, GuildChannel, MessageFlags } from 'discord.js';
 import { BotCommand } from '../bot-interaction-types.js';
 import { EmojiCharacters } from '../constants/emoji-characters.js';
 
@@ -17,7 +17,7 @@ export const sayCommand: BotCommand<'say'> = {
     if (actualMessage.length === 0) {
       await interaction.reply({
         content: 'The provided message cannot be empty',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -29,7 +29,7 @@ export const sayCommand: BotCommand<'say'> = {
     if (channel.type !== ChannelType.GuildText) {
       await interaction.reply({
         content: 'The provided channel is not a text channel',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -37,7 +37,7 @@ export const sayCommand: BotCommand<'say'> = {
     await channel.send({ content: actualMessage });
     await interaction.reply({
       content: `${EmojiCharacters.WHITE_HEAVY_CHECK_MARK} Message sent to ${channel}`,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };

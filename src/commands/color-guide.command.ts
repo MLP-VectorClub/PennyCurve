@@ -1,3 +1,4 @@
+import { MessageFlags } from 'discord.js';
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
 import { env } from '../env.js';
@@ -40,7 +41,7 @@ export const colorGuideCommand: BotCommand<'cg'> = {
     if (!appearance) {
       await interaction.reply({
         content: `No appearance matching \`${query}\` was found in that guide.`,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
