@@ -204,6 +204,10 @@
             {
               "name": "Illustrator",
               "value": "Illustrator"
+            },
+            {
+              "name": "Affinity Designer",
+              "value": "Affinity Designer"
             }
           ],
           "required": true
