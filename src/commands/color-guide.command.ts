@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BotCommand } from '../bot-interaction-types.js';
+import { env } from '../env.js';
 
 enum OptionName {
   QUERY = 'name',
@@ -9,38 +10,42 @@ enum OptionName {
 enum GuideNames {
   FRIENDSHIP_IS_MAGIC = 'pony',
   EQUESTRIA_GIRLS = 'eqg',
-  PONY_LIFE = 'pl',
 }
 
-type AppGotoResponse = { status: false } | { status: true; goto: string };
+/** The smallest page size the API accepts, only the first result is used */
+const SEARCH_PAGE_SIZE = 7;
 
-const responseTypeGuard = (data: AppGotoResponse | unknown): data is AppGotoResponse => {
-  const checkBaseType = typeof data === 'object'
-    && data !== null
-    && 'status' in data
-    && typeof (data as { status: unknown }).status === 'boolean';
-  if (!checkBaseType) return false;
+type AppearanceSearchResponse = { appearances: Array<{ id: number; label: string; guide: string | null }> };
 
-  const localData = data as ({ status: boolean; goto?: unknown });
-  return !localData.status || typeof localData.goto === 'string';
-};
+const responseTypeGuard = (data: unknown): data is AppearanceSearchResponse => typeof data === 'object'
+  && data !== null
+  && 'appearances' in data
+  && Array.isArray((data as { appearances: unknown }).appearances);
 
 export const colorGuideCommand: BotCommand<'cg'> = {
   name: 'cg',
   async handle(interaction) {
     const query = interaction.options.getString(OptionName.QUERY, true);
     const guideName = interaction.options.getString(OptionName.GUIDE) || GuideNames.FRIENDSHIP_IS_MAGIC;
-    const url = `/cg/${guideName}?btnl&json&q=${encodeURIComponent(query)}`;
 
-    const { data } = await axios.get(url, {
+    const { data, status } = await axios.get('/appearances', {
       responseType: 'json',
-      baseURL: process.env.BACKEND_BASE_URL,
+      baseURL: env.BACKEND_BASE_URL,
+      params: { guide: guideName, q: query, size: SEARCH_PAGE_SIZE },
     });
 
-    if (!responseTypeGuard(data)) throw new Error(`Malformed data received from backend: ${JSON.stringify(data)}`);
+    if (status !== 200 || !responseTypeGuard(data)) throw new Error(`Color Guide search failed (status ${status}): ${JSON.stringify(data)}`);
 
-    if (!data.status) throw new Error(`Color Guide search failed: ${JSON.stringify(data)}`);
+    const [appearance] = data.appearances;
+    if (!appearance) {
+      await interaction.reply({
+        content: `No appearance matching \`${query}\` was found in that guide.`,
+        ephemeral: true,
+      });
+      return;
+    }
 
-    await interaction.reply(process.env.FRONTEND_BASE_URL + (data.goto.substring(1)));
+    // The site redirects to the canonical URL, which also contains the label
+    await interaction.reply(`${env.FRONTEND_BASE_URL}cg/${guideName}/v/${appearance.id}`);
   },
 };
