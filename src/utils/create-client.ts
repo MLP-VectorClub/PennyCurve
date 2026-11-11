@@ -3,6 +3,7 @@ import { getGitData } from '@went.tf/discord-bot-framework/utils';
 import { Client, GatewayIntentBits } from 'discord.js';
 import { env } from '../env.js';
 import { InteractionHandlerContext } from '../types/interaction-handler.context.js';
+import { startHealthServer } from '../health.js';
 import { handleInteraction } from './handle-interaction.js';
 
 const handleReady = (context: InteractionHandlerContext) => async (client: Client<true>) => {
@@ -17,10 +18,13 @@ const handleReady = (context: InteractionHandlerContext) => async (client: Clien
 };
 
 export const createClient = async (context: InteractionHandlerContext): Promise<void> => {
-  await createBotClient({
+  const client = await createBotClient({
     intents: [GatewayIntentBits.Guilds],
     token: env.DISCORD_BOT_TOKEN,
     onReady: handleReady(context),
     onInteraction: (interaction) => handleInteraction(interaction, context),
   });
+
+  const healthPort = Number(process.env.HEALTH_PORT);
+  if (healthPort > 0) startHealthServer(client, healthPort, context.logger);
 };
